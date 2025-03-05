@@ -1,11 +1,24 @@
 from dataclasses import dataclass
 
+import json
 
-@dataclass
+
 class ShipPosition:
     """A simple `(x, y)` representation of a ship's position."""
-    x: int
-    y: int
+
+    def __init__(self, x: int = 0, y: int = 0):
+        self.x: int = x
+        self.y: int = y
+
+    def __repr__(self):
+        return f'({self.x}, {self.y})'
+
+    def toJSON(self) -> str:
+        return json.dumps(
+            self,
+            default=lambda o: o.__dict__,
+            sort_keys=True,
+            indent=4)
 
 
 class ShipState:
