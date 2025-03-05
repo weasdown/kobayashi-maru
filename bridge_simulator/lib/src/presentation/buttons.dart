@@ -36,6 +36,7 @@ class DangerButton extends ElevatedButton {
          ),
          child: Text(
            text,
+           textAlign: TextAlign.center,
            style: Theme.of(context()).textTheme.headlineMedium!.copyWith(
              color: Colors.white,
              fontSize: fontSize,
