@@ -1,7 +1,7 @@
 import 'package:bridge_simulator/bridge_simulator.dart';
 
 final class Bridge {
-  Bridge();
+  const Bridge();
 
   final ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
   final OpsBridgeStation ops = BridgeStation.ops;
