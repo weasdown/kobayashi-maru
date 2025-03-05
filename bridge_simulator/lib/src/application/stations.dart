@@ -1,3 +1,4 @@
+import 'package:bridge_simulator/bridge_simulator.dart';
 import 'package:flutter/material.dart';
 
 sealed class BridgeStation extends StatelessWidget {
@@ -81,9 +82,38 @@ final class CaptainChairBridgeStation extends BridgeStation {
 final class TacticalBridgeStation extends BridgeStation {
   const TacticalBridgeStation({super.key}) : super._();
 
+  void firePhasers() {
+    debugPrint('Firing phasers!');
+  }
+
+  void firePhotonTorpedoes() {
+    debugPrint('Firing photon torpedoes!');
+  }
+
+  static const double spacing = 32;
+
   @override
   Widget build(BuildContext context) {
-    return placeholderBuildMethod(context);
+    Widget firePhasersButton = DangerButton(
+      context: context,
+      text: 'Fire Phasers',
+      onPressed: firePhasers,
+    );
+
+    Widget firePhotonTorpedoesButton = DangerButton(
+      context: context,
+      text: 'Fire Photon Torpedoes',
+      onPressed: firePhotonTorpedoes,
+    );
+
+    return Scaffold(
+      body: GridView.count(
+        padding: EdgeInsets.all(spacing),
+        crossAxisSpacing: spacing,
+        crossAxisCount: 4,
+        children: [firePhasersButton, firePhotonTorpedoesButton],
+      ),
+    );
   }
 }
 
