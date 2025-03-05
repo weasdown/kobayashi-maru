@@ -1,6 +1,6 @@
 # bridge_simulator
 
-A Flutter simulator of the bridge of a Star Trek Constellation-class starship.
+A Flutter simulator of the [bridge on a Galaxy-class starship](https://memory-alpha.fandom.com/wiki/Galaxy_class#Main_bridge).
 
 ## Getting Started
 
