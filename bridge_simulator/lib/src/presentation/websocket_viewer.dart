@@ -83,7 +83,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
         children: [
           FutureBuilder(
             future: Future.wait<Object>([
-              Future<bool>.delayed(Duration(seconds: 2), () => true),
+              Future<bool>.delayed(Duration(milliseconds: 600), () => true),
               connectToChannel(serverUri),
             ]),
             builder: (context, fbSnapshot) {
