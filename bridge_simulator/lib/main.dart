@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'src/presentation/websocket_viewer.dart';
+
 void main() {
   runApp(const MyApp());
 }
+
+final Uri webSocketServer = Uri(scheme: 'ws', host: 'localhost', port: 5678);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -30,7 +35,8 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Home(),
+      // const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -118,5 +124,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return WebsocketViewer(websocketUri: webSocketServer);
   }
 }
