@@ -26,7 +26,7 @@ class ShipState:
     class Navigation:
         """Data about the Enterprise's navigational state."""
         position: ShipPosition = ShipPosition(0, 0)
-        in_neutral_zone: bool = False
+        in_neutral_zone: bool = False  # TODO convert to a getter based on the current position
 
     @dataclass
     class Structure:
