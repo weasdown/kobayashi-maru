@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'src/presentation/websocket_viewer.dart';
+import 'src/data/stations.dart';
+// import 'src/presentation/websocket_viewer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,6 +46,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WebsocketViewer(websocketUri: webSocketServer);
+    return BridgeStation.ops();
+    // return WebsocketViewer(websocketUri: webSocketServer);
   }
 }
