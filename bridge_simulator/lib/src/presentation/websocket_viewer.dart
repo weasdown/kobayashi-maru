@@ -84,6 +84,8 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
     Future<WebSocketChannel> connectToChannel(Uri server) async =>
         WebSocketChannel.connect(serverUri);
 
+    fbNoneOrWaiting() => textWithLoadingCircle('Connecting to channel...');
+
     return Scaffold(
       appBar: AppBar(
         elevation: 20,
