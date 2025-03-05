@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
 
-  String get stationName => runtimeType.toString().replaceFirst('_', '');
+  String get stationName => runtimeType.toString();
 
   const factory BridgeStation.viewscreen({Key? key}) = ViewscreenBridgeStation;
 
