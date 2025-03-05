@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+void exitCleanly() {
+  debugPrint('Exiting cleanly');
+  exit(0);
+}
 
 /// An [ElevatedButton] whose styling signifies that its action is dangerous in some way.
 class DangerButton extends ElevatedButton {
