@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebsocketViewer extends StatelessWidget {
@@ -6,63 +7,91 @@ class WebsocketViewer extends StatelessWidget {
 
   final Uri websocketUri;
 
+  // TODO remove tempWebsocketUri and knownBadUri
   final bool deliberateFail = false;
 
   @override
   Widget build(BuildContext context) {
-    Widget content() {
-      late final WebSocketChannel channel;
+    Text text(toDisplay) => Text(
+      toDisplay,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.bodyLarge,
+    );
 
-      // TODO remove tempWebsocketUri and deliberateFail
-      Uri tempWebsocketUri = Uri(
-        scheme: websocketUri.scheme,
-        host: websocketUri.host,
-        port: 1234,
-      );
-      channel = WebSocketChannel.connect(
-        deliberateFail ? tempWebsocketUri : websocketUri,
-      );
+    (String, Widget) loading() => (
+      'Loading...',
+      FractionallySizedBox(widthFactor: 0.5, child: LinearProgressIndicator()),
+    );
 
-      return StreamBuilder(
-        stream: channel.stream,
-        initialData: 'Connecting to the WebSocket server...',
-        builder: (context, snapshot) {
-          String message;
+    (String, Widget) activeOrDone(AsyncSnapshot snapshot) {
+      String message =
+          (snapshot.connectionState == ConnectionState.done)
+              ? 'Connection to server has closed. Final data: ${snapshot.data}'
+              : (snapshot.hasData)
+              ? snapshot.data
+              : 'Very unexpected state!';
 
-          message = 'snapshot.connectionState: ${snapshot.connectionState}';
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            message = 'Waiting for data';
-          }
-
-          if (snapshot.hasData) {
-            message = snapshot.data;
-          } else if (snapshot.hasError) {
-            dynamic error = snapshot.error;
-            if (error is WebSocketChannelException) {
-              message =
-                  'Connection could not be opened to WebSocket server at ${websocketUri.toString()}';
-            } else {
-              message = 'snapshot has an unrecognised error:\n\n$error';
-            }
-          } else {
-            message = 'Very unexpected state!';
-          }
-
-          debugPrint(message);
-          return Text(
-            message,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge,
-          );
-        },
-      );
+      return (message, text(message));
     }
 
+    (String, Widget) error(AsyncSnapshot snapshot) {
+      dynamic error = snapshot.error;
+
+      String message;
+
+      if (error is WebSocketChannelException) {
+        message =
+            'Connection could not be opened to WebSocket server at ${websocketUri.toString()}';
+        return (message, text(message));
+      } else {
+        message = 'snapshot has an unrecognised error:\n\n$error';
+        return (message, ErrorWidget(error));
+      }
+    }
+
+    final Uri knownBadUri = Uri(
+      scheme: websocketUri.scheme,
+      host: websocketUri.host,
+      port: 1234,
+    );
+
+    final Uri serverUri = deliberateFail ? knownBadUri : websocketUri;
+
+    late final WebSocketChannel channel;
+
+    channel = WebSocketChannel.connect(serverUri);
+
     return Scaffold(
-      appBar: AppBar(title: Text('WebSocket Viewer')),
+      appBar: AppBar(elevation: 20, title: Text('WebSocket Viewer')),
       body: ListView(
         shrinkWrap: true,
-        children: [FractionallySizedBox(widthFactor: 0.75, child: content())],
+        children: [
+          Gap(32),
+          FractionallySizedBox(
+            widthFactor: 0.75,
+            child: StreamBuilder(
+              stream: channel.stream,
+              initialData: 'Connecting to the WebSocket server...',
+              builder: (context, snapshot) {
+                late String message;
+                late Widget content;
+
+                (message, content) =
+                    (snapshot.hasError)
+                        ? error(snapshot)
+                        : switch (snapshot.connectionState) {
+                          ConnectionState.waiting ||
+                          ConnectionState.none => loading(),
+                          ConnectionState.active || ConnectionState.done =>
+                            (message, content) = activeOrDone(snapshot),
+                        };
+
+                debugPrint(message);
+                return content;
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
