@@ -38,7 +38,6 @@ dependencies:
   web_socket_channel: ^3.0.2
   material_symbols_icons: ^4.2805.1
   window_manager: ^0.4.3
-  bitsdojo_window: ^0.1.6
 
 dev_dependencies:
   flutter_test:

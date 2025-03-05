@@ -48,7 +48,7 @@ class DangerButton extends ElevatedButton {
 }
 
 Widget exitButton = Padding(
-  padding: const EdgeInsets.only(right: 8.0),
+  padding: const EdgeInsets.only(right: 16.0),
   child: CircleAvatar(
     backgroundColor: Colors.red.shade900,
     child: IconButton(

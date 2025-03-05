@@ -26,14 +26,6 @@ void main() async {
   });
 
   runApp(const MyApp());
-
-  doWhenWindowReady(() {
-    Size initialSize = windowOptions.size!;
-    appWindow.minSize = Size(600, 400);
-    appWindow.size = initialSize;
-    appWindow.alignment = Alignment.center;
-    appWindow.show();
-  });
 }
 
 class MyApp extends StatelessWidget {
