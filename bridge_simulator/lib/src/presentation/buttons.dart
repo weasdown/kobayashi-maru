@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -44,3 +46,15 @@ class DangerButton extends ElevatedButton {
 
   static final Color colour = Colors.red.shade900;
 }
+
+Widget exitButton = Padding(
+  padding: const EdgeInsets.only(right: 8.0),
+  child: CircleAvatar(
+    backgroundColor: Colors.red.shade900,
+    child: IconButton(
+      color: Colors.white,
+      onPressed: exitCleanly,
+      icon: Icon(Symbols.close),
+    ),
+  ),
+);
