@@ -41,7 +41,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
     (String, Widget) activeOrDone(AsyncSnapshot snapshot) {
       String message =
           (snapshot.connectionState == ConnectionState.done)
-              ? 'Connection to server has closed. Final data: ${snapshot.data}'
+              ? 'Connection to server has closed. Final data:\n${snapshot.data}'
               : (snapshot.hasData)
               ? snapshot.data
               : 'Very unexpected state!';
