@@ -4,7 +4,7 @@ library;
 import 'package:flutter/material.dart';
 
 import 'src/application/bridge.dart';
-import 'src/application/stations.dart';
+import 'src/presentation/stations.dart';
 // import 'src/presentation/websocket_viewer.dart';
 
 const Bridge bridge = Bridge();
