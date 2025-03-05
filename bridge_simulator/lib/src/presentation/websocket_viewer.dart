@@ -114,7 +114,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                     child: StreamBuilder(
                       stream: channel.stream,
                       builder: (context, snapshot) {
-                        late String message;
+                        String message = '';
                         late Widget content;
 
                         (message, content) =
@@ -127,6 +127,8 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                                   ConnectionState.done => done(snapshot),
                                 };
 
+                        // TODO remove extra setting (only to hide printing during development)
+                        message = '';
                         debugPrint(message);
                         return content;
                       },
