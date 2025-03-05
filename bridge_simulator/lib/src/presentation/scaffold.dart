@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
+
+import 'buttons.dart';
 
 class DefaultScaffold extends Scaffold {
-  const DefaultScaffold({
+  DefaultScaffold({
     super.key,
-    super.appBar,
     super.body,
     super.bottomNavigationBar,
     super.bottomSheet,
@@ -26,5 +28,16 @@ class DefaultScaffold extends Scaffold {
     super.primary,
     super.resizeToAvoidBottomInset,
     super.restorationId,
-  }) : super(backgroundColor: Colors.black);
+  }) : super(
+         backgroundColor: Colors.black,
+         appBar: PreferredSize(
+           preferredSize: const Size.fromHeight(50),
+           child: DragToMoveArea(
+             child: AppBar(
+               backgroundColor: Colors.black,
+               actions: [exitButton],
+             ),
+           ),
+         ),
+       );
 }
