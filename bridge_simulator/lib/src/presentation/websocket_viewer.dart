@@ -78,7 +78,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
     return Scaffold(
       appBar: AppBar(
         elevation: 20,
-        title: Text('WebSocket Viewer'),
+        title: Text('Kobayashi Maru'),
         actions: [IconButton(onPressed: _refresh, icon: Icon(Symbols.refresh))],
       ),
       body: ListView(
