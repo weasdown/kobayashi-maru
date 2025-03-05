@@ -86,10 +86,13 @@ final class TacticalBridgeStation extends BridgeStation {
 
   void firePhasers() {
     debugPrint('Firing phasers!');
+    // TODO implement phaser firing
+    // bridge.send();
   }
 
   void firePhotonTorpedoes() {
     debugPrint('Firing photon torpedoes!');
+    // TODO implement torpedo firing
   }
 
   static const double spacing = 32;
