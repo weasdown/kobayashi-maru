@@ -33,7 +33,7 @@ async def universe_state(server, sim_universe: Universe):
             message = sim_universe.toJSON()
             broadcast(server.connections, message)
 
-            sim_universe.ship_state.structure_data.hull_integrity -= 5
+            # sim_universe.ship_state.structure_data.hull_integrity -= 5
             print(f'New integrity: {structural_integrity(sim_universe)}')
 
         else:
