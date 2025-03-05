@@ -5,28 +5,28 @@ sealed class BridgeStation extends StatelessWidget {
 
   String get stationName => runtimeType.toString();
 
-  const factory BridgeStation.viewscreen({Key? key}) = ViewscreenBridgeStation;
+  static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
-  const factory BridgeStation.ops({Key? key}) = OpsBridgeStation;
+  static const OpsBridgeStation ops = OpsBridgeStation();
 
-  const factory BridgeStation.conn({Key? key}) = ConnBridgeStation;
+  static const ConnBridgeStation conn = ConnBridgeStation();
 
-  const factory BridgeStation.captainChair({Key? key}) =
-      CaptainChairBridgeStation;
+  static const CaptainChairBridgeStation captainChair =
+      CaptainChairBridgeStation();
 
-  const factory BridgeStation.tactical({Key? key}) = TacticalBridgeStation;
+  static const TacticalBridgeStation tactical = TacticalBridgeStation();
 
-  const factory BridgeStation.scienceI({Key? key}) = ScienceIBridgeStation;
+  static const ScienceIBridgeStation scienceI = ScienceIBridgeStation();
 
-  const factory BridgeStation.scienceII({Key? key}) = ScienceIIBridgeStation;
+  static const ScienceIIBridgeStation scienceII = ScienceIIBridgeStation();
 
-  const factory BridgeStation.missionOps({Key? key}) = MissionOpsBridgeStation;
+  static const MissionOpsBridgeStation missionOps = MissionOpsBridgeStation();
 
-  const factory BridgeStation.environment({Key? key}) =
-      EnvironmentBridgeStation;
+  static const EnvironmentBridgeStation environment =
+      EnvironmentBridgeStation();
 
-  const factory BridgeStation.engineering({Key? key}) =
-      EngineeringBridgeStation;
+  static const EngineeringBridgeStation engineering =
+      EngineeringBridgeStation();
 
   // TODO remove placeholderBuildMethod() once all subtypes have implemented build()
   Widget placeholderBuildMethod(BuildContext context) {
