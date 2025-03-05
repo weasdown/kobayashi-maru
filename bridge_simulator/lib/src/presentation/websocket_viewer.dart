@@ -31,6 +31,8 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       children: [text(toDisplay), Gap(50), CircularProgressIndicator()],
     );
 
+    fbNoneOrWaiting() => textWithLoadingCircle('Connecting to channel...');
+
     (String, Widget) loading() => (
       'Loading...',
       textWithLoadingCircle('Getting data from channel'),
@@ -72,8 +74,6 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
 
     Future<WebSocketChannel> connectToChannel(Uri server) async =>
         WebSocketChannel.connect(serverUri);
-
-    fbNoneOrWaiting() => textWithLoadingCircle('Connecting to channel...');
 
     return Scaffold(
       appBar: AppBar(
