@@ -9,6 +9,8 @@ import random
 
 from websockets.asyncio.server import broadcast, serve
 
+from server.universe import ShipPosition, ShipState
+
 
 async def noop(websocket):
     await websocket.wait_closed()
@@ -27,4 +29,11 @@ async def main():
 
 
 if __name__ == "__main__":
+    position: ShipPosition = ShipPosition()
+    print(f'Initial ship position: {position}')
+    print(f'Initial ship position as a JSON: {position.toJSON()}')
+
+    ship_state: ShipState = ShipState()
+    print(f'\nInitial ship state:\n{ship_state}')
+
     asyncio.run(main())
