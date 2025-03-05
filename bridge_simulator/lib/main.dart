@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'src/data/stations.dart';
+import 'src/application/stations.dart';
 // import 'src/presentation/websocket_viewer.dart';
 
 void main() {
