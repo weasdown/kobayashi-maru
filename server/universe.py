@@ -46,7 +46,15 @@ class ShipState:
 
         self.tactical_data: ShipState.Tactical = ShipState.Tactical()
 
-        self.weapons_locked: bool = False
+    def __repr__(self):
+        return ('Structure:\n'
+                f'{self.structure_data}\n'
+                '\n'
+                'Navigation:\n'
+                f'{self.navigation_data}\n'
+                f'\n'
+                f'Tactical:\n'
+                f'{self.tactical_data}')
 
 
 class Universe:
