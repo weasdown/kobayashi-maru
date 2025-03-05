@@ -48,3 +48,12 @@ class Home extends StatelessWidget {
     return WebsocketViewer(websocketUri: webSocketServer);
   }
 }
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return WebsocketViewer(websocketUri: webSocketServer);
+  }
+}
