@@ -25,6 +25,7 @@ sealed class BridgeStation extends StatelessWidget {
 
   const factory BridgeStation.engineering({Key? key}) = _Engineering;
 
+  // TODO remove placeholderBuildMethod() once all subtypes have implemented build()
   Widget placeholderBuildMethod(BuildContext context) {
     return Scaffold(
       body: Center(
