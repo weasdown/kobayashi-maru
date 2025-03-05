@@ -33,13 +33,18 @@ class ShipState:
         """Data about the Enterprise's structure."""
         hull_integrity: int = 100  # percent
 
+    @dataclass
+    class Tactical:
+        shields_up: bool = False
+        weapons_locked: bool = False
+
     def __init__(self):
         """Model of the Enterprise."""
         self.structure_data: ShipState.Structure = ShipState.Structure()
 
         self.navigation_data: ShipState.Navigation = ShipState.Navigation()
 
-        self.shields_up: bool = False
+        self.tactical_data: ShipState.Tactical = ShipState.Tactical()
 
         self.weapons_locked: bool = False
 
