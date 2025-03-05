@@ -1,148 +1,129 @@
 import 'package:flutter/material.dart';
 
-/// The various stations and consoles around the Galaxy-class bridge.
-enum BridgeStationOption {
-  viewscreen(widget: Viewscreen()),
-  ops(widget: Ops()),
-  conn(widget: Conn()),
-  captainChair(widget: CaptainChair()),
-  tactical(widget: Tactical()),
-  scienceI(widget: ScienceI()),
-  scienceII(widget: ScienceII()),
-  missionOps(widget: MissionOps()),
-  environment(widget: Environment()),
-  engineering(widget: Engineering());
-
-  const BridgeStationOption({required this.widget});
-
-  final Widget widget;
-}
-
 sealed class BridgeStation extends StatelessWidget {
-  const BridgeStation({super.key});
+  const BridgeStation._({super.key});
 
-  factory BridgeStation.fromOption({required BridgeStationOption station}) {
-    return switch (station) {
-      // TODO: Handle this case.
-      BridgeStationOption.viewscreen => throw UnimplementedError(),
+  String get stationName => runtimeType.toString().replaceFirst('_', '');
 
-      // TODO: Handle this case.
-      BridgeStationOption.ops => throw UnimplementedError(),
+  const factory BridgeStation.viewscreen({Key? key}) = _Viewscreen;
 
-      // TODO: Handle this case.
-      BridgeStationOption.conn => throw UnimplementedError(),
+  const factory BridgeStation.ops({Key? key}) = _Ops;
 
-      // TODO: Handle this case.
-      BridgeStationOption.captainChair => throw UnimplementedError(),
+  const factory BridgeStation.conn({Key? key}) = _Conn;
 
-      // TODO: Handle this case.
-      BridgeStationOption.tactical => throw UnimplementedError(),
+  const factory BridgeStation.captainChair({Key? key}) = _CaptainChair;
 
-      // TODO: Handle this case.
-      BridgeStationOption.scienceI => throw UnimplementedError(),
+  const factory BridgeStation.tactical({Key? key}) = _Tactical;
 
-      // TODO: Handle this case.
-      BridgeStationOption.scienceII => throw UnimplementedError(),
+  const factory BridgeStation.scienceI({Key? key}) = _ScienceI;
 
-      // TODO: Handle this case.
-      BridgeStationOption.missionOps => throw UnimplementedError(),
+  const factory BridgeStation.scienceII({Key? key}) = _ScienceII;
 
-      // TODO: Handle this case.
-      BridgeStationOption.environment => throw UnimplementedError(),
+  const factory BridgeStation.missionOps({Key? key}) = _MissionOps;
 
-      // TODO: Handle this case.
-      BridgeStationOption.engineering => throw UnimplementedError(),
-    };
+  const factory BridgeStation.environment({Key? key}) = _Environment;
+
+  const factory BridgeStation.engineering({Key? key}) = _Engineering;
+
+  Widget placeholderBuildMethod(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          stationName,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
   }
 }
 
-final class Viewscreen extends BridgeStation {
-  const Viewscreen({super.key});
+final class _Viewscreen extends BridgeStation {
+  const _Viewscreen({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    throw UnimplementedError();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class Ops extends StatelessWidget {
-  const Ops({super.key});
+final class _Ops extends BridgeStation {
+  const _Ops({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class Conn extends StatelessWidget {
-  const Conn({super.key});
+final class _Conn extends BridgeStation {
+  const _Conn({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class CaptainChair extends StatelessWidget {
-  const CaptainChair({super.key});
+final class _CaptainChair extends BridgeStation {
+  const _CaptainChair({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class Tactical extends StatelessWidget {
-  const Tactical({super.key});
+final class _Tactical extends BridgeStation {
+  const _Tactical({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class ScienceI extends StatelessWidget {
-  const ScienceI({super.key});
+final class _ScienceI extends BridgeStation {
+  const _ScienceI({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class ScienceII extends StatelessWidget {
-  const ScienceII({super.key});
+final class _ScienceII extends BridgeStation {
+  const _ScienceII({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class MissionOps extends StatelessWidget {
-  const MissionOps({super.key});
+final class _MissionOps extends BridgeStation {
+  const _MissionOps({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class Environment extends StatelessWidget {
-  const Environment({super.key});
+final class _Environment extends BridgeStation {
+  const _Environment({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
 
-final class Engineering extends StatelessWidget {
-  const Engineering({super.key});
+final class _Engineering extends BridgeStation {
+  const _Engineering({super.key}) : super._();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return placeholderBuildMethod(context);
   }
 }
