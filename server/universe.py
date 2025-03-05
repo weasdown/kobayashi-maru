@@ -56,7 +56,7 @@ class ShipState:
                 f'Tactical:\n'
                 f'{self.tactical_data}')
 
-    def toJSON(self):
+    def toJSON(self) -> str:
         return json.dumps(
             self,
             default=lambda o: o.__dict__,
@@ -71,7 +71,7 @@ class Universe:
 
         self.klingon_positions: list[ShipPosition] = []  # No Klingons initially
 
-    def toJSON(self):
+    def toJSON(self) -> str:
         return json.dumps(
             self,
             default=lambda o: o.__dict__,
