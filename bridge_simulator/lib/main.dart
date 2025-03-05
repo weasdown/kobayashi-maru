@@ -13,8 +13,6 @@ void main() {
   runApp(const MyApp());
 }
 
-final Uri webSocketServer = Uri(scheme: 'ws', host: 'localhost', port: 5678);
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
