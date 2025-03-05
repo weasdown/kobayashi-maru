@@ -97,13 +97,13 @@ final class TacticalBridgeStation extends BridgeStation {
   @override
   Widget build(BuildContext context) {
     Widget firePhasersButton = DangerButton(
-      context: context,
+      context: () => context,
       text: 'Fire Phasers',
       onPressed: firePhasers,
     );
 
     Widget firePhotonTorpedoesButton = DangerButton(
-      context: context,
+      context: () => context,
       text: 'Fire Photon Torpedoes',
       onPressed: firePhotonTorpedoes,
     );
