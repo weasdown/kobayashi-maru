@@ -20,15 +20,20 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
 
   @override
   Widget build(BuildContext context) {
-    Text text(toDisplay) => Text(
+    Text text(String toDisplay) => Text(
       toDisplay,
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.bodyLarge,
+      style: Theme.of(context).textTheme.headlineSmall,
+    );
+
+    Widget textWithLoadingCircle(String toDisplay) => Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [text(toDisplay), Gap(50), CircularProgressIndicator()],
     );
 
     (String, Widget) loading() => (
       'Loading...',
-      FractionallySizedBox(widthFactor: 0.5, child: LinearProgressIndicator()),
+      textWithLoadingCircle('Getting data from channel'),
     );
 
     (String, Widget) activeOrDone(AsyncSnapshot snapshot) {
@@ -65,12 +70,10 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
 
     final Uri serverUri = deliberateFail ? knownBadUri : widget.websocketUri;
 
-    late final WebSocketChannel channel;
-
     Future<WebSocketChannel> connectToChannel(Uri server) async =>
         WebSocketChannel.connect(serverUri);
 
-    channel = WebSocketChannel.connect(serverUri);
+    fbNoneOrWaiting() => textWithLoadingCircle('Connecting to channel...');
 
     return Scaffold(
       appBar: AppBar(
@@ -81,63 +84,47 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       body: ListView(
         shrinkWrap: true,
         children: [
+          Gap(50),
           FutureBuilder(
             future: Future.wait<Object>([
               Future<bool>.delayed(Duration(milliseconds: 600), () => true),
               connectToChannel(serverUri),
             ]),
             builder: (context, fbSnapshot) {
-              fbNoneOrWaiting() => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Gap(50),
-                  Text(
-                    'Connecting to channel...',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Gap(50),
-                  CircularProgressIndicator(),
-                ],
-              );
-
               return switch (fbSnapshot.connectionState) {
                 ConnectionState.none ||
                 ConnectionState.waiting ||
                 ConnectionState.active => fbNoneOrWaiting(),
 
-                ConnectionState.done => ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Gap(32),
-                    FractionallySizedBox(
-                      widthFactor: 0.75,
-                      child: StreamBuilder(
-                        stream: channel.stream,
-                        initialData: 'Connecting to the WebSocket server...',
-                        builder: (context, snapshot) {
-                          late String message;
-                          late Widget content;
+                ConnectionState.done => () {
+                  WebSocketChannel channel =
+                      (fbSnapshot.data)![1] as WebSocketChannel;
 
-                          (message, content) =
-                              (snapshot.hasError)
-                                  ? error(snapshot)
-                                  : switch (snapshot.connectionState) {
-                                    ConnectionState.waiting ||
-                                    ConnectionState.none => loading(),
-                                    ConnectionState.active ||
-                                    ConnectionState.done =>
-                                      (message, content) = activeOrDone(
-                                        snapshot,
-                                      ),
-                                  };
+                  return FractionallySizedBox(
+                    widthFactor: 0.75,
+                    child: StreamBuilder(
+                      stream: channel.stream,
+                      builder: (context, snapshot) {
+                        late String message;
+                        late Widget content;
 
-                          debugPrint(message);
-                          return content;
-                        },
-                      ),
+                        (message, content) =
+                            (snapshot.hasError)
+                                ? error(snapshot)
+                                : switch (snapshot.connectionState) {
+                                  ConnectionState.waiting ||
+                                  ConnectionState.none => loading(),
+                                  ConnectionState.active ||
+                                  ConnectionState.done =>
+                                    (message, content) = activeOrDone(snapshot),
+                                };
+
+                        debugPrint(message);
+                        return content;
+                      },
                     ),
-                  ],
-                ),
+                  );
+                }(),
               };
             },
           ),
