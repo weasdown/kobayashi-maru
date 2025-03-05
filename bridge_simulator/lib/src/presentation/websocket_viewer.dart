@@ -38,7 +38,16 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       textWithLoadingCircle('Getting data from channel'),
     );
 
-    (String, Widget) activeOrDone(AsyncSnapshot snapshot) {
+    (String, Widget) active(AsyncSnapshot snapshot) => (
+      snapshot.data,
+      Text(
+        snapshot.data,
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+    );
+
+    (String, Widget) done(AsyncSnapshot snapshot) {
       String message =
           (snapshot.connectionState == ConnectionState.done)
               ? 'Connection to server has closed. Final data:\n${snapshot.data}'
@@ -114,9 +123,8 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                                 : switch (snapshot.connectionState) {
                                   ConnectionState.waiting ||
                                   ConnectionState.none => loading(),
-                                  ConnectionState.active ||
-                                  ConnectionState.done =>
-                                    (message, content) = activeOrDone(snapshot),
+                                  ConnectionState.active => active(snapshot),
+                                  ConnectionState.done => done(snapshot),
                                 };
 
                         debugPrint(message);
