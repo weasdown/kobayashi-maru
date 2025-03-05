@@ -23,9 +23,31 @@ async def show_time(server):
         await asyncio.sleep(random.random() * 2 + 1)
 
 
-async def main():
+def structural_integrity(sim_universe: Universe) -> int:
+    return sim_universe.ship_state.structure_data.hull_integrity
+
+
+async def universe_state(server, sim_universe: Universe):
+    while True:
+        if structural_integrity(sim_universe) > 0:
+            message = sim_universe.toJSON()
+            broadcast(server.connections, message)
+
+            sim_universe.ship_state.structure_data.hull_integrity -= 5
+            print(f'New integrity: {structural_integrity(sim_universe)}')
+
+        else:
+            message = '\nGAME OVER'
+            print(message)
+            broadcast(server.connections, message)
+            break
+
+        await asyncio.sleep(1)
+
+
+async def main(sim_universe: Universe):
     async with serve(noop, "localhost", 5678) as server:
-        await show_time(server)
+        await universe_state(server, sim_universe)
 
 
 if __name__ == "__main__":
@@ -41,4 +63,4 @@ if __name__ == "__main__":
     print(f'\nUniverse: {universe}')
     print(f'\nUniverse as a JSON: {universe.toJSON()}')
 
-    asyncio.run(main())
+    asyncio.run(main(universe))
