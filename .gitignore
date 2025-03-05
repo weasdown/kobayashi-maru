@@ -198,6 +198,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!bridge_simulator/lib
 lib64/
 parts/
 sdist/
