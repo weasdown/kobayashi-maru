@@ -9,7 +9,7 @@ import random
 
 from websockets.asyncio.server import broadcast, serve
 
-from server.universe import ShipPosition, ShipState
+from server.universe import ShipPosition, ShipState, Universe
 
 
 async def noop(websocket):
@@ -36,5 +36,9 @@ if __name__ == "__main__":
     ship_state: ShipState = ShipState()
     print(f'\nInitial ship state:\n{ship_state}')
     print(f'\nInitial ship state as a JSON:\n{ship_state.toJSON()}')
+
+    universe: Universe = Universe()
+    print(f'\nUniverse: {universe}')
+    print(f'\nUniverse as a JSON: {universe.toJSON()}')
 
     asyncio.run(main())
