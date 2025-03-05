@@ -1,5 +1,7 @@
-import 'package:bridge_simulator/bridge_simulator.dart';
 import 'package:flutter/material.dart';
+
+import '../presentation/scaffold.dart';
+import 'buttons.dart';
 
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
@@ -106,7 +108,7 @@ final class TacticalBridgeStation extends BridgeStation {
       onPressed: firePhotonTorpedoes,
     );
 
-    return Scaffold(
+    return DefaultScaffold(
       body: GridView.count(
         padding: EdgeInsets.all(spacing),
         crossAxisSpacing: spacing,
