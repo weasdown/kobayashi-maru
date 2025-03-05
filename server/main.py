@@ -35,5 +35,6 @@ if __name__ == "__main__":
 
     ship_state: ShipState = ShipState()
     print(f'\nInitial ship state:\n{ship_state}')
+    print(f'\nInitial ship state as a JSON:\n{ship_state.toJSON()}')
 
     asyncio.run(main())
