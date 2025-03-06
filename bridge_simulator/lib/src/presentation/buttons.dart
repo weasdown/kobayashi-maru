@@ -60,15 +60,12 @@ Widget exitButton = Padding(
   ),
 );
 
-class RefreshButton extends StatefulWidget {
-  const RefreshButton({super.key});
+class RefreshButton extends StatelessWidget {
+  RefreshButton({super.key, required this.onRefresh});
 
-  @override
-  State<RefreshButton> createState() => _RefreshButtonState();
-}
-
-class _RefreshButtonState extends State<RefreshButton> {
   final Color backgroundColour = Colors.blue.shade900;
+
+  final void Function() onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +79,7 @@ class _RefreshButtonState extends State<RefreshButton> {
         color: Colors.white,
         onPressed: () {
           debugPrint('Refreshing');
-          setState(() {});
+          onRefresh();
         },
         icon: const Icon(Symbols.refresh),
       ),
