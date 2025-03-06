@@ -35,5 +35,6 @@ final class Bridge {
 
   final ServerInterface communicationInterface;
 
-  void send(String message) => communicationInterface.send(message);
+  void send(BridgeStation station, String message) =>
+      communicationInterface.send(station, message);
 }

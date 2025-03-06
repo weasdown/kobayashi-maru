@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+import '../presentation/stations.dart';
 
 /// A client-side interface to the WebSocket connection that enables data to be shared with the simulation server.
 interface class ServerInterface {
@@ -9,8 +13,15 @@ interface class ServerInterface {
   /// The [WebSocketChannel] that data is sent across.
   WebSocketChannel? get channel => WebSocketChannel.connect(channelUri);
 
-  /// Send a [message] to the WebSocket server.
-  void send(String message) => channel!.sink.add(message);
+  /// Sends a [message] to the WebSocket server.
+  void send(BridgeStation station, String message) {
+    // TODO remove debugPrint
+    debugPrint('Sending message from ${station.name}: $message');
+    channel!.sink.add(transmission(station, message));
+  }
+
+  String transmission(BridgeStation station, String data) =>
+      json.encode({'station': station.name, 'data': data});
 
   /// The [Stream] that provides data from the server.
   Stream get stream => channel!.stream;

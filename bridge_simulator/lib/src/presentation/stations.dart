@@ -15,6 +15,9 @@ sealed class BridgeStation extends StatelessWidget {
   /// A more human-readable name for this [BridgeStation].
   String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
 
+  /// Sends a message to the simulation server via the [Bridge].
+  void send(String data) => bridge.send(this, data);
+
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
   static const OpsBridgeStation ops = OpsBridgeStation();
@@ -99,7 +102,7 @@ final class TacticalBridgeStation extends BridgeStation {
   void firePhasers() {
     debugPrint('Firing phasers!');
     // TODO implement phaser firing
-    bridge.send('firePhasers');
+    send('firePhasers');
   }
 
   void firePhotonTorpedoes() {
