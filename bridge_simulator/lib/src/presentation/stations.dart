@@ -13,7 +13,8 @@ sealed class BridgeStation extends StatelessWidget {
   Bridge get bridge => Home.mainBridge;
 
   /// A more human-readable name for this [BridgeStation].
-  String get stationName => runtimeType.toString();
+  String get stationName =>
+      runtimeType.toString().replaceFirst('BridgeStation', '');
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
