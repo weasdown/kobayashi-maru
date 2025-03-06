@@ -46,6 +46,9 @@ sealed class BridgeStation extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => name;
 }
 
 /// Displays various views to the bridge crew, often of what's in front of the ship.
