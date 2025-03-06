@@ -9,8 +9,10 @@ import 'buttons.dart';
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
 
+  /// The [Bridge] used throughout the simulation.
   Bridge get bridge => Home.mainBridge;
 
+  /// A more human-readable name for this [BridgeStation].
   String get stationName => runtimeType.toString();
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();

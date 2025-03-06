@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
 class Home extends StatelessWidget {
   const Home({super.key});
 
+  /// The [Bridge] instance used throughout the simulation.
   static const Bridge mainBridge = Bridge();
 
   @override
