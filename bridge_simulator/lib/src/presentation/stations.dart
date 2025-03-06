@@ -89,6 +89,7 @@ final class CaptainChairBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for weapons, shields, long-range sensors and communications (supporting the [OpsBridgeStation])
 final class TacticalBridgeStation extends BridgeStation {
   const TacticalBridgeStation({super.key}) : super._();
 
