@@ -1,6 +1,6 @@
-/// A bridge simulator for Star Trek's Galaxy-class starships.
+/// A bridge simulator for Star Trek's [*Galaxy*-class](https://memory-alpha.fandom.com/wiki/Galaxy_class) starships.
 library;
 
-export 'src/data/websockets/bridge_server.dart';
-export 'src/presentation/buttons.dart';
-export 'src/presentation/stations.dart';
+export 'src/application/application.dart';
+export 'src/data/data.dart';
+export 'src/presentation/presentation.dart';
