@@ -4,7 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'src/presentation/presentation.dart';
+import 'src/application/bridge.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,9 +58,11 @@ class MyApp extends StatelessWidget {
 class Home extends StatelessWidget {
   const Home({super.key});
 
+  static const Bridge mainBridge = Bridge();
+
   @override
   Widget build(BuildContext context) {
-    return BridgeStation.tactical;
+    return mainBridge.tactical;
     // return WebsocketViewer(websocketUri: webSocketServer);
   }
 }
