@@ -59,3 +59,33 @@ Widget exitButton = Padding(
     ),
   ),
 );
+
+class RefreshButton extends StatefulWidget {
+  const RefreshButton({super.key});
+
+  @override
+  State<RefreshButton> createState() => _RefreshButtonState();
+}
+
+class _RefreshButtonState extends State<RefreshButton> {
+  final Color backgroundColour = Colors.blue.shade900;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: 16),
+      child: IconButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all<Color>(backgroundColour),
+        ),
+
+        color: Colors.white,
+        onPressed: () {
+          debugPrint('Refreshing');
+          setState(() {});
+        },
+        icon: const Icon(Symbols.refresh),
+      ),
+    );
+  }
+}
