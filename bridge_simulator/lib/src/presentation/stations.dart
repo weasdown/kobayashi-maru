@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../application/bridge.dart';
 import '../presentation/scaffold.dart';
 import 'buttons.dart';
 
+/// A generic station, console or screen on the [Bridge].
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
 
@@ -44,6 +46,7 @@ sealed class BridgeStation extends StatelessWidget {
   }
 }
 
+/// Displays various views to the bridge crew, often of what's in front of the ship.
 final class ViewscreenBridgeStation extends BridgeStation {
   const ViewscreenBridgeStation({super.key}) : super._();
 
@@ -54,6 +57,7 @@ final class ViewscreenBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for communications, scanning and course navigation.
 final class OpsBridgeStation extends BridgeStation {
   const OpsBridgeStation({super.key}) : super._();
 
@@ -63,6 +67,7 @@ final class OpsBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for piloting the ship.
 final class ConnBridgeStation extends BridgeStation {
   const ConnBridgeStation({super.key}) : super._();
 
@@ -72,6 +77,7 @@ final class ConnBridgeStation extends BridgeStation {
   }
 }
 
+/// Provides key information to the ship's Captain.
 final class CaptainChairBridgeStation extends BridgeStation {
   const CaptainChairBridgeStation({super.key}) : super._();
 
@@ -122,6 +128,7 @@ final class TacticalBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for science investigations.
 final class ScienceIBridgeStation extends BridgeStation {
   const ScienceIBridgeStation({super.key}) : super._();
 
@@ -131,6 +138,7 @@ final class ScienceIBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for science investigations.
 final class ScienceIIBridgeStation extends BridgeStation {
   const ScienceIIBridgeStation({super.key}) : super._();
 
@@ -140,6 +148,7 @@ final class ScienceIIBridgeStation extends BridgeStation {
   }
 }
 
+/// Enables access to data about the ship's current mission (e.g. about nearby planets).
 final class MissionOpsBridgeStation extends BridgeStation {
   const MissionOpsBridgeStation({super.key}) : super._();
 
@@ -149,6 +158,7 @@ final class MissionOpsBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for controlling the life support system to maintain a habitable and comfortable environment for the crew .
 final class EnvironmentBridgeStation extends BridgeStation {
   const EnvironmentBridgeStation({super.key}) : super._();
 
@@ -158,6 +168,9 @@ final class EnvironmentBridgeStation extends BridgeStation {
   }
 }
 
+/// Responsible for the ship's engines, transporters and other engineering systems.
+///
+/// This is a backup to the consoles found in Main Engineering.
 final class EngineeringBridgeStation extends BridgeStation {
   const EngineeringBridgeStation({super.key}) : super._();
 
