@@ -4,7 +4,7 @@ import 'ship.dart';
 
 /// The room from where the bridge crew control the [Ship].
 final class Bridge {
-  const Bridge();
+  const Bridge() : communicationInterface = const ServerInterface();
 
   final ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
   final OpsBridgeStation ops = BridgeStation.ops;
@@ -16,4 +16,6 @@ final class Bridge {
   final MissionOpsBridgeStation missionOps = BridgeStation.missionOps;
   final EnvironmentBridgeStation environment = BridgeStation.environment;
   final EngineeringBridgeStation engineering = BridgeStation.engineering;
+
+  final ServerInterface communicationInterface;
 }
