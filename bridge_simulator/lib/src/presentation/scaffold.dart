@@ -28,16 +28,12 @@ class DefaultScaffold extends Scaffold {
     super.primary,
     super.resizeToAvoidBottomInset,
     super.restorationId,
-  }) : super(
-         backgroundColor: Colors.black,
-         appBar: PreferredSize(
-           preferredSize: const Size.fromHeight(50),
-           child: DragToMoveArea(
-             child: AppBar(
-               backgroundColor: Colors.black,
-               actions: [exitButton],
-             ),
-           ),
-         ),
-       );
+  }) : super(backgroundColor: Colors.black, appBar: defaultAppBar);
 }
+
+final PreferredSizeWidget defaultAppBar = PreferredSize(
+  preferredSize: const Size.fromHeight(50),
+  child: DragToMoveArea(
+    child: AppBar(backgroundColor: Colors.black, actions: [exitButton]),
+  ),
+);
