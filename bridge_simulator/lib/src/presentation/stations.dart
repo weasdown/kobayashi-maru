@@ -13,8 +13,7 @@ sealed class BridgeStation extends StatelessWidget {
   Bridge get bridge => Home.mainBridge;
 
   /// A more human-readable name for this [BridgeStation].
-  String get stationName =>
-      runtimeType.toString().replaceFirst('BridgeStation', '');
+  String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
@@ -43,10 +42,7 @@ sealed class BridgeStation extends StatelessWidget {
   Widget placeholderBuildMethod(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          stationName,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        child: Text(name, style: Theme.of(context).textTheme.headlineMedium),
       ),
     );
   }
