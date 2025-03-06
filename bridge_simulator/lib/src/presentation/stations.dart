@@ -8,6 +8,8 @@ import 'buttons.dart';
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
 
+  static const Bridge bridge = Bridge();
+
   String get stationName => runtimeType.toString();
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
