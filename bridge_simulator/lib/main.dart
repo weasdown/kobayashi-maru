@@ -4,10 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'src/application/bridge.dart';
 import 'src/presentation/presentation.dart';
-
-const Bridge bridge = Bridge();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
