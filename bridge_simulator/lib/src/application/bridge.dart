@@ -35,4 +35,6 @@ final class Bridge {
   static const EngineeringBridgeStation engineering = BridgeStation.engineering;
 
   final ServerInterface communicationInterface;
+
+  void send(String message) => communicationInterface.send(message);
 }
