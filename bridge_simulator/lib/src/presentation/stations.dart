@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import '../application/bridge.dart';
 import '../presentation/scaffold.dart';
 import 'buttons.dart';
@@ -8,7 +9,7 @@ import 'buttons.dart';
 sealed class BridgeStation extends StatelessWidget {
   const BridgeStation._({super.key});
 
-  static const Bridge bridge = Bridge();
+  Bridge get bridge => Home.mainBridge;
 
   String get stationName => runtimeType.toString();
 
@@ -96,7 +97,7 @@ final class TacticalBridgeStation extends BridgeStation {
   void firePhasers() {
     debugPrint('Firing phasers!');
     // TODO implement phaser firing
-    // bridge.send();
+    bridge.send('firePhasers');
   }
 
   void firePhotonTorpedoes() {
