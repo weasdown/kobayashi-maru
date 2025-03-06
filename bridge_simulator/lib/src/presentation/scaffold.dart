@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'buttons.dart';
+
 class DefaultScaffold extends Scaffold {
   DefaultScaffold({
     super.key,
     super.body,
-    List<Widget>? appBarActions,
+    void Function()? onRefresh,
     super.bottomNavigationBar,
     super.bottomSheet,
     super.drawer,
@@ -29,7 +31,7 @@ class DefaultScaffold extends Scaffold {
     super.restorationId,
   }) : super(
          backgroundColor: Colors.black,
-         appBar: defaultAppBar(actions: appBarActions),
+         appBar: defaultAppBar(actions: [RefreshButton(onRefresh: onRefresh)]),
        );
 }
 

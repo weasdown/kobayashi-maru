@@ -17,6 +17,13 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
   // TODO remove tempWebsocketUri and knownBadUri
   final bool deliberateFail = false;
 
+  late WebSocketChannel channel;
+
+  void refresh() {
+    channel.sink.close();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     Text text(String toDisplay) => Text(
@@ -87,7 +94,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       appBar: AppBar(
         elevation: 20,
         title: Text('Kobayashi Maru'),
-        actions: [RefreshButton()],
+        actions: [RefreshButton(onRefresh: refresh)],
       ),
       body: ListView(
         shrinkWrap: true,
@@ -105,8 +112,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                 ConnectionState.active => fbNoneOrWaiting(),
 
                 ConnectionState.done => () {
-                  WebSocketChannel channel =
-                      (fbSnapshot.data)![1] as WebSocketChannel;
+                  channel = (fbSnapshot.data)![1] as WebSocketChannel;
 
                   return FractionallySizedBox(
                     widthFactor: 0.75,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../main.dart';
 import '../application/bridge.dart';
@@ -6,7 +7,55 @@ import '../presentation/scaffold.dart';
 import 'buttons.dart';
 
 /// A generic station, console or screen on the [Bridge].
-sealed class BridgeStation extends StatelessWidget {
+// sealed class BridgeStation extends StatelessWidget {
+//   const BridgeStation._({super.key});
+//
+//   /// The [Bridge] used throughout the simulation.
+//   Bridge get bridge => Home.mainBridge;
+//
+//   /// A more human-readable name for this [BridgeStation].
+//   String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
+//
+//   /// Sends a message to the simulation server via the [Bridge].
+//   void send(String data) => bridge.send(this, data);
+//
+//   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
+//
+//   static const OpsBridgeStation ops = OpsBridgeStation();
+//
+//   static const ConnBridgeStation conn = ConnBridgeStation();
+//
+//   static const CaptainChairBridgeStation captainChair =
+//       CaptainChairBridgeStation();
+//
+//   static const TacticalBridgeStation tactical = TacticalBridgeStation();
+//
+//   static const ScienceIBridgeStation scienceI = ScienceIBridgeStation();
+//
+//   static const ScienceIIBridgeStation scienceII = ScienceIIBridgeStation();
+//
+//   static const MissionOpsBridgeStation missionOps = MissionOpsBridgeStation();
+//
+//   static const EnvironmentBridgeStation environment =
+//       EnvironmentBridgeStation();
+//
+//   static const EngineeringBridgeStation engineering =
+//       EngineeringBridgeStation();
+//
+//   // TODO remove placeholderBuildMethod() once all subtypes have implemented build()
+//   Widget placeholderBuildMethod(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Text(name, style: Theme.of(context).textTheme.headlineMedium),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => name;
+// }
+
+sealed class BridgeStation extends StatefulWidget {
   const BridgeStation._({super.key});
 
   /// The [Bridge] used throughout the simulation.
@@ -15,8 +64,8 @@ sealed class BridgeStation extends StatelessWidget {
   /// A more human-readable name for this [BridgeStation].
   String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
 
-  /// Sends a message to the simulation server via the [Bridge].
-  void send(String data) => bridge.send(this, data);
+  // /// Sends a message to the simulation server via the [Bridge].
+  // void send(String data) => bridge.send(this, data);
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
@@ -52,13 +101,65 @@ sealed class BridgeStation extends StatelessWidget {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => name;
+
+  @override
+  State<BridgeStation> createState() => BridgeStationState();
+}
+
+class BridgeStationState extends State<BridgeStation> {
+  BridgeStationState();
+
+  @override
+  void dispose() {
+    _channel.sink.close();
+    super.dispose();
+  }
+
+  late final WebSocketChannel _channel = bridge.communicationInterface.channel!;
+
+  Bridge get bridge => widget.bridge;
+
+  late Stream stream = bridge.communicationInterface.stream;
+
+  void refresh() {
+    setState(() {});
+  }
+
+  /// Sends a message to the simulation server via the [Bridge].
+  void send(String data) => bridge.send(widget, data);
+
+  late Widget content;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: super.widget.bridge.communicationInterface.stream,
+      builder: (context, snapshot) {
+        debugPrint('\nLatest data from WebSocket: ${snapshot.data}');
+        debugPrint('Rebuilding');
+
+        String message =
+            (snapshot.hasError)
+                ? snapshot.error.toString()
+                : switch (snapshot.connectionState) {
+                  ConnectionState.waiting || ConnectionState.none => 'Loading',
+                  ConnectionState.active => 'Data: ${snapshot.data}',
+
+                  ConnectionState.done => 'Final data: ${snapshot.data}',
+                };
+        debugPrint('message: $message');
+
+        return DefaultScaffold(body: content);
+      },
+    );
+  }
 }
 
 /// Displays various views to the bridge crew, often of what's in front of the ship.
 final class ViewscreenBridgeStation extends BridgeStation {
   const ViewscreenBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return placeholderBuildMethod(context);
@@ -69,7 +170,7 @@ final class ViewscreenBridgeStation extends BridgeStation {
 final class OpsBridgeStation extends BridgeStation {
   const OpsBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -79,7 +180,7 @@ final class OpsBridgeStation extends BridgeStation {
 final class ConnBridgeStation extends BridgeStation {
   const ConnBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -89,25 +190,29 @@ final class ConnBridgeStation extends BridgeStation {
 final class CaptainChairBridgeStation extends BridgeStation {
   const CaptainChairBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
 }
 
-/// Responsible for weapons, shields, long-range sensors and communications (supporting the [OpsBridgeStation])
-final class TacticalBridgeStation extends BridgeStation {
+/// Responsible for weapons, shields, long-range sensors and communications (supporting the [OpsBridgeStation]).
+class TacticalBridgeStation extends BridgeStation {
   const TacticalBridgeStation({super.key}) : super._();
 
-  void firePhasers() {
-    debugPrint('Firing phasers!');
-    // TODO implement phaser firing
+  @override
+  BridgeStationState createState() => _TBSState();
+}
+
+class _TBSState extends BridgeStationState {
+  Future<void> firePhasers() async {
+    debugPrint('\nFiring phasers!');
     send('firePhasers');
   }
 
   void firePhotonTorpedoes() {
-    debugPrint('Firing photon torpedoes!');
-    // TODO implement torpedo firing
+    debugPrint('\nFiring photon torpedoes!');
+    send('firePhotonTorpedoes');
   }
 
   static const double spacing = 32;
@@ -126,14 +231,14 @@ final class TacticalBridgeStation extends BridgeStation {
       onPressed: firePhotonTorpedoes,
     );
 
-    return DefaultScaffold(
-      body: GridView.count(
-        padding: EdgeInsets.all(spacing),
-        crossAxisSpacing: spacing,
-        crossAxisCount: 4,
-        children: [firePhasersButton, firePhotonTorpedoesButton],
-      ),
+    content = GridView.count(
+      padding: EdgeInsets.all(spacing),
+      crossAxisSpacing: spacing,
+      crossAxisCount: 2,
+      children: [firePhasersButton, firePhotonTorpedoesButton],
     );
+
+    return super.build(context);
   }
 }
 
@@ -141,7 +246,7 @@ final class TacticalBridgeStation extends BridgeStation {
 final class ScienceIBridgeStation extends BridgeStation {
   const ScienceIBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -151,7 +256,7 @@ final class ScienceIBridgeStation extends BridgeStation {
 final class ScienceIIBridgeStation extends BridgeStation {
   const ScienceIIBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -161,7 +266,7 @@ final class ScienceIIBridgeStation extends BridgeStation {
 final class MissionOpsBridgeStation extends BridgeStation {
   const MissionOpsBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -171,7 +276,7 @@ final class MissionOpsBridgeStation extends BridgeStation {
 final class EnvironmentBridgeStation extends BridgeStation {
   const EnvironmentBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }
@@ -183,7 +288,7 @@ final class EnvironmentBridgeStation extends BridgeStation {
 final class EngineeringBridgeStation extends BridgeStation {
   const EngineeringBridgeStation({super.key}) : super._();
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     return placeholderBuildMethod(context);
   }

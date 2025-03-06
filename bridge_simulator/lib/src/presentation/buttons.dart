@@ -65,7 +65,7 @@ class RefreshButton extends StatelessWidget {
 
   final Color backgroundColour = Colors.blue.shade900;
 
-  final void Function() onRefresh;
+  final void Function()? onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +78,10 @@ class RefreshButton extends StatelessWidget {
 
         color: Colors.white,
         onPressed: () {
-          debugPrint('Refreshing');
-          onRefresh();
+          debugPrint('\nRefreshing');
+          if (onRefresh != null) {
+            onRefresh!();
+          }
         },
         icon: const Icon(Symbols.refresh),
       ),

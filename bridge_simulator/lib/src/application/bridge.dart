@@ -6,7 +6,7 @@ import 'ship.dart';
 
 /// The room from where the bridge crew control the [Ship].
 final class Bridge {
-  const Bridge() : communicationInterface = const ServerInterface();
+  Bridge() : communicationInterface = ServerInterface();
 
   /// All the [BridgeStation]s on this [Bridge].
   UnmodifiableListView<BridgeStation> get stations => UnmodifiableListView([
