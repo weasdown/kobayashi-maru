@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:material_symbols_icons/symbols.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'buttons.dart';
 
 class WebsocketViewer extends StatefulWidget {
   const WebsocketViewer({super.key, required this.websocketUri});
@@ -15,8 +16,6 @@ class WebsocketViewer extends StatefulWidget {
 class _WebsocketViewerState extends State<WebsocketViewer> {
   // TODO remove tempWebsocketUri and knownBadUri
   final bool deliberateFail = false;
-
-  void _refresh() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +87,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       appBar: AppBar(
         elevation: 20,
         title: Text('Kobayashi Maru'),
-        actions: [IconButton(onPressed: _refresh, icon: Icon(Symbols.refresh))],
+        actions: [RefreshButton()],
       ),
       body: ListView(
         shrinkWrap: true,
