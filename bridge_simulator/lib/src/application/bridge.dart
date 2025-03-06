@@ -22,17 +22,16 @@ final class Bridge {
     engineering,
   ]);
 
-  static const ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
-  static const OpsBridgeStation ops = BridgeStation.ops;
-  static const ConnBridgeStation conn = BridgeStation.conn;
-  static const CaptainChairBridgeStation captainChair =
-      BridgeStation.captainChair;
-  static const TacticalBridgeStation tactical = BridgeStation.tactical;
-  static const ScienceIBridgeStation scienceI = BridgeStation.scienceI;
-  static const ScienceIIBridgeStation scienceII = BridgeStation.scienceII;
-  static const MissionOpsBridgeStation missionOps = BridgeStation.missionOps;
-  static const EnvironmentBridgeStation environment = BridgeStation.environment;
-  static const EngineeringBridgeStation engineering = BridgeStation.engineering;
+  final ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
+  final OpsBridgeStation ops = BridgeStation.ops;
+  final ConnBridgeStation conn = BridgeStation.conn;
+  final CaptainChairBridgeStation captainChair = BridgeStation.captainChair;
+  final TacticalBridgeStation tactical = BridgeStation.tactical;
+  final ScienceIBridgeStation scienceI = BridgeStation.scienceI;
+  final ScienceIIBridgeStation scienceII = BridgeStation.scienceII;
+  final MissionOpsBridgeStation missionOps = BridgeStation.missionOps;
+  final EnvironmentBridgeStation environment = BridgeStation.environment;
+  final EngineeringBridgeStation engineering = BridgeStation.engineering;
 
   final ServerInterface communicationInterface;
 
