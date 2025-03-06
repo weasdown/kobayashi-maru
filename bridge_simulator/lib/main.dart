@@ -1,13 +1,11 @@
 /// @nodoc
 library;
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/application/bridge.dart';
-import 'src/presentation/stations.dart';
-// import 'src/presentation/websocket_viewer.dart';
+import 'src/presentation/presentation.dart';
 
 const Bridge bridge = Bridge();
 
