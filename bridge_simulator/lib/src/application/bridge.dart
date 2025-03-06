@@ -1,5 +1,8 @@
-import 'package:bridge_simulator/bridge_simulator.dart';
+import '../data/bridge_server.dart';
+import '../presentation/stations.dart';
+import 'ship.dart';
 
+/// The room from where the bridge crew control the [Ship].
 final class Bridge {
   const Bridge();
 
