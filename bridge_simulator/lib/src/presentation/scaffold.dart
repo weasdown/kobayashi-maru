@@ -34,6 +34,9 @@ class DefaultScaffold extends Scaffold {
 final PreferredSizeWidget defaultAppBar = PreferredSize(
   preferredSize: const Size.fromHeight(50),
   child: DragToMoveArea(
-    child: AppBar(backgroundColor: Colors.black, actions: [exitButton]),
+    child: AppBar(
+      backgroundColor: Colors.black,
+      actions: [RefreshButton(), exitButton],
+    ),
   ),
 );
