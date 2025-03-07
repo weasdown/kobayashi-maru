@@ -119,6 +119,8 @@ class BridgeStationState extends State<BridgeStation> {
 
   Bridge get bridge => widget.bridge;
 
+  static const double spacing = 32;
+
   late Stream stream = bridge.communicationInterface.stream;
 
   void refresh() {
@@ -128,7 +130,7 @@ class BridgeStationState extends State<BridgeStation> {
   /// Sends a message to the simulation server via the [Bridge].
   void send(String data) => bridge.send(widget, data);
 
-  late Widget content;
+  late List<Widget> tiles;
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +151,14 @@ class BridgeStationState extends State<BridgeStation> {
                 };
         debugPrint('message: $message');
 
-        return DefaultScaffold(body: content);
+        return DefaultScaffold(
+          body: GridView.count(
+            crossAxisSpacing: spacing,
+            padding: EdgeInsets.all(spacing),
+            crossAxisCount: 3,
+            children: tiles,
+          ),
+        );
       },
     );
   }
@@ -215,8 +224,6 @@ class _TBSState extends BridgeStationState {
     send('firePhotonTorpedoes');
   }
 
-  static const double spacing = 32;
-
   @override
   Widget build(BuildContext context) {
     Widget firePhasersButton = DangerButton(
@@ -231,12 +238,7 @@ class _TBSState extends BridgeStationState {
       onPressed: firePhotonTorpedoes,
     );
 
-    content = GridView.count(
-      padding: EdgeInsets.all(spacing),
-      crossAxisSpacing: spacing,
-      crossAxisCount: 2,
-      children: [firePhasersButton, firePhotonTorpedoesButton],
-    );
+    tiles = [firePhasersButton, firePhotonTorpedoesButton];
 
     return super.build(context);
   }
