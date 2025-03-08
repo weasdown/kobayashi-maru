@@ -99,7 +99,10 @@ async def main(
     #     await universe_state(server, sim_universe)
     #     await simulate(server, sim_universe)
 
-    async with serve(simulate, "localhost", 5678) as server:
+    local_only: bool = False
+    host: str = 'localhost' if local_only else ''
+
+    async with serve(simulate, host, 5678) as server:
         await server.serve_forever()
 
 
