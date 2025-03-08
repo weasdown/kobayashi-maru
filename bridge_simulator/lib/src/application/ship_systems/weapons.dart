@@ -1,19 +1,14 @@
-import '../../presentation/stations.dart';
 import '../ship.dart';
 import '../ship_systems/ship_systems.dart';
 
 final class Weapons extends ShipSystem {
-  Weapons({required super.ship}) : super(station: BridgeStation.tactical);
+  Weapons() : super();
 
   EnemyShip? target;
-
-  late final Phasers phasers = Phasers(ship: ship);
-
-  late final Torpedoes torpedoes = Torpedoes(ship: ship);
 }
 
 final class Phasers extends Weapons {
-  Phasers({required super.ship});
+  Phasers();
 
   bool firing = false;
 
@@ -28,9 +23,9 @@ final class Phasers extends Weapons {
 }
 
 final class Torpedoes extends Weapons {
-  Torpedoes({required super.ship});
+  Torpedoes({required this.remaining});
 
-  int remaining = 20; // TODO get from server rather than hard-coding
+  int remaining; // TODO get from server rather than hard-coding
 
   bool firing = false;
 
