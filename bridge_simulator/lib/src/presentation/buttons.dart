@@ -78,7 +78,6 @@ class RefreshButton extends StatelessWidget {
 
         color: Colors.white,
         onPressed: () {
-          debugPrint('\nRefreshing');
           if (onRefresh != null) {
             onRefresh!();
           }
