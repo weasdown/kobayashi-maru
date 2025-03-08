@@ -210,27 +210,15 @@ class _TBSState extends BridgeStationState {
     send('fire_phasers');
   }
 
-  void firePhotonTorpedoes() {
-    debugPrint('\nFiring photon torpedoes!');
-    send('fire_torpedoes');
-
-    var remaining = data?['torpedoes_remaining'];
-    debugPrint('remaining: $remaining');
-    remainingTorpedoes = remaining ?? remainingTorpedoes;
-  }
-
   @override
   Widget build(BuildContext context) {
-    Widget firePhasersButton = DangerButton(
-      context: () => context,
-      text: 'Fire Phasers',
-      onPressed: firePhasers,
-    );
-
-    Widget firePhotonTorpedoesButton = DangerButton(
-      context: () => context,
-      text: 'Fire Photon Torpedoes',
-      onPressed: firePhotonTorpedoes,
+    Widget firePhasersButton = SizedBox(
+      height: 100,
+      child: DangerButton(
+        context: () => context,
+        text: 'Fire Phasers',
+        onPressed: firePhasers,
+      ),
     );
 
     tiles = [firePhasersButton, firePhotonTorpedoesButton];

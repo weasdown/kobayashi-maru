@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -88,6 +89,60 @@ class RefreshButton extends StatelessWidget {
           }
         },
         icon: const Icon(Symbols.refresh),
+      ),
+    );
+  }
+}
+
+class FireTorpedoesButton extends StatelessWidget {
+  const FireTorpedoesButton({
+    super.key,
+    required this.data,
+    required this.remainingTorpedoes,
+    required this.send,
+    required this.setRemainingTorpedoes,
+  });
+
+  final String data;
+
+  final int remainingTorpedoes;
+
+  final void Function(String) send;
+
+  final void Function(int) setRemainingTorpedoes;
+
+  void firePhotonTorpedoes() {
+    debugPrint('\nFiring photon torpedoes!');
+    send('fire_torpedoes');
+  }
+
+  bool get torpedoesAvailable => remainingTorpedoes > 0;
+
+  @override
+  Widget build(BuildContext context) {
+    Map<String, dynamic> decoded;
+    String displayValue;
+
+    try {
+      decoded = json.decode(data);
+      String key = 'torpedoes_remaining';
+      if (decoded.containsKey(key)) {
+        setRemainingTorpedoes(int.parse(decoded[key]));
+      }
+
+      displayValue = remainingTorpedoes.toString();
+    } on FormatException {
+      // FIXME server should send initial value
+      displayValue = 'Unknown';
+    }
+
+    return SizedBox(
+      height: 100,
+      child: DangerButton(
+        active: remainingTorpedoes > 0,
+        context: () => context,
+        text: 'Fire Photon Torpedoes\n($displayValue remaining)',
+        onPressed: torpedoesAvailable ? firePhotonTorpedoes : null,
       ),
     );
   }
