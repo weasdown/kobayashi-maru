@@ -12,6 +12,7 @@ void exitCleanly() {
 class DangerButton extends ElevatedButton {
   DangerButton({
     super.key,
+    this.active = true,
     required BuildContext Function() context,
     required super.onPressed,
     required String text,
@@ -26,11 +27,15 @@ class DangerButton extends ElevatedButton {
     super.statesController,
   }) : super(
          style: ButtonStyle(
-           backgroundColor: WidgetStateProperty.all<Color>(colour),
+           backgroundColor: WidgetStateProperty.all<Color>(
+             active ? Colors.red.shade900 : Colors.grey,
+           ),
            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
              RoundedRectangleBorder(
                borderRadius: BorderRadius.circular(18.0),
-               side: BorderSide(color: colour),
+               side: BorderSide(
+                 color: active ? Colors.red.shade900 : Colors.grey,
+               ),
              ),
            ),
          ),
@@ -45,7 +50,7 @@ class DangerButton extends ElevatedButton {
          ),
        );
 
-  static final Color colour = Colors.red.shade900;
+  final bool active;
 }
 
 Widget exitButton = Padding(

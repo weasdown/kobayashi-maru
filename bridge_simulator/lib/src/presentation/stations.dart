@@ -92,6 +92,8 @@ sealed class BridgeStation extends StatefulWidget {
   static const EngineeringBridgeStation engineering =
       EngineeringBridgeStation();
 
+  /// Sends a message to the simulation server.
+  void send(String message) => Message.send(data: message, station: this);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => name;
