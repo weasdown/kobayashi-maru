@@ -22,7 +22,16 @@ void main() async {
     });
   }
 
-  runApp(const Home(isServer: false));
+  runApp(const KobayashiMaru());
+}
+
+class KobayashiMaru extends StatelessWidget {
+  const KobayashiMaru({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Home(isServer: false);
+  }
 }
 
 class Home extends StatefulWidget {
