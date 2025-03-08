@@ -29,7 +29,7 @@ class Tactical(BridgeStation):
         if self.torpedoes_remaining > 0:
             self.torpedoes_remaining -= 1
             self.torpedoes_firing = False
-            await self.websocket.send(json.dumps({'torpedoes_remaining': self.torpedoes_remaining}))
+            await self.websocket.send(json.dumps({'torpedoes_remaining': str(self.torpedoes_remaining)}))
         else:
             await self.websocket.send(json.dumps({'torpedoes_firing_failed': 'remaining == 0'}))
 
