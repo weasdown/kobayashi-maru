@@ -39,3 +39,33 @@ final class Torpedoes extends Weapons {
     firing = false;
   }
 }
+
+final class Disruptors extends Weapons {}
+
+final class GalaxyClassWeapons extends Weapons {
+  GalaxyClassWeapons();
+
+  final Phasers phasers = Phasers();
+
+  final Torpedoes torpedoes = Torpedoes(remaining: 20);
+}
+
+final class BorgWeapons extends Weapons {
+  BorgWeapons();
+
+  final Phasers phasers = Phasers();
+}
+
+final class KlingonWeapons extends Weapons {
+  KlingonWeapons();
+
+  final Phasers phasers = Phasers();
+
+  final Torpedoes torpedoes = Torpedoes(remaining: 30);
+}
+
+final class RomulanWeapons extends Weapons {
+  RomulanWeapons();
+
+  final Disruptors disruptors = Disruptors();
+}
