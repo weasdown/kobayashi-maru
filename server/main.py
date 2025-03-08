@@ -9,6 +9,8 @@ import json
 import random
 
 from websockets.asyncio.server import broadcast, serve, Server  # , ServerConnection
+from server.ship_model.bridge import Bridge
+
 # from socket import socket
 
 # from websockets.legacy.server import WebSocketServer
@@ -58,13 +60,22 @@ def structural_integrity(sim_universe: Universe) -> int:
 async def simulate(websocket):
     # await websocket.send('Test data')
 
+    bridge: Bridge = Bridge(websocket)
+
     while True:
         data: dict = json.loads(await websocket.recv())
         print(f'Received: {data}')
-        print(f'data["data"]: {data["data"]}')
 
-        await websocket.send(data['data'])
-        print(f"Sending '{data}'\n")
+        print(f'station: {data["station"]}')
+
+        match data['station']:
+            case 'Tactical':
+                await bridge.tactical.process_commands(data['data'])
+            # TODO add other cases
+
+        # echo: str = data['data']
+        # await websocket.send(echo)
+        # print(f"Sending '{echo}'\n")
 
         # await universe_state(websocket, sim_universe)
 
