@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -49,7 +50,7 @@ class Home extends StatefulWidget {
 
   final Uri channelUri;
 
-  WebSocketChannel? connectToServer() =>
+  WebSocketChannel connectToServer() =>
   // TODO once connected, set initial simulation state from first stream data.
   WebSocketChannel.connect(channelUri);
 
@@ -74,7 +75,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  (String, Widget) active(AsyncSnapshot snapshot) => (
+    snapshot.data,
+    Text(
+      snapshot.data,
+      textAlign: TextAlign.start,
+      style: Theme.of(context).textTheme.headlineSmall,
+    ),
+  );
+
   late WebSocketChannel channel;
+
+  Widget connect() {
+    return FutureBuilder(
+      future: channel.ready,
+      builder: (context, snapshot) {
+        return (snapshot.hasError)
+            ? text(
+              '${snapshot.error.runtimeType}: Connection could not be opened to WebSocket server at ${widget.channelUri.toString()}',
+            )
+            : text('Connected');
+      },
+    );
+  }
 
   // FIXME reconnect after channel close
   void refresh() {
@@ -82,16 +105,25 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
+  Text text(String toDisplay) => Text(
+    toDisplay,
+    textAlign: TextAlign.center,
+    style: Theme.of(context).textTheme.headlineSmall,
+  );
+
   @override
   Widget build(BuildContext context) {
+    channel = widget.connectToServer();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 20,
         title: Text('Kobayashi Maru'),
         actions: [RefreshButton(onRefresh: refresh)],
       ),
-      body: Home.mainBridge.tactical,
-      // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
+      // body: Home.mainBridge.tactical,
+      // // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
+      body: ListView(shrinkWrap: true, children: [Gap(50), connect()]),
     );
   }
 }
