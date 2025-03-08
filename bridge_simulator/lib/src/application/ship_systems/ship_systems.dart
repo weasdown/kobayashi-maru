@@ -13,3 +13,7 @@ final class Structure extends ShipSystem {
 final class Propulsion extends ShipSystem {
   Propulsion() : super();
 }
+
+final class Tactical extends ShipSystem {
+  Tactical() : super();
+}
