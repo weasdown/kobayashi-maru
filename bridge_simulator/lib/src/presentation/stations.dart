@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -104,6 +106,15 @@ sealed class BridgeStation extends StatefulWidget {
 
   @override
   State<BridgeStation> createState() => BridgeStationState();
+
+  // // TODO implement properly - copied from Stream tutorial: https://dart.dev/libraries/async/using-streams#receiving-stream-events
+  // Future<Map<String, dynamic>> sumStream(Stream<String> stream) async {
+  //   await for (final value in stream) {
+  //     Map<String, dynamic> valueMap = json.decode(value);
+  //     debugPrint('Latest Map<String, dynamic> data: $valueMap');
+  //   }
+  //   return {};
+  // }
 }
 
 class BridgeStationState extends State<BridgeStation> {
@@ -123,21 +134,24 @@ class BridgeStationState extends State<BridgeStation> {
 
   late Stream stream = bridge.communicationInterface.stream;
 
-  void refresh() {
-    setState(() {});
-  }
-
   /// Sends a message to the simulation server via the [Bridge].
   void send(String data) => bridge.send(widget, data);
 
   late List<Widget> tiles;
 
+  Map<String, dynamic>? data;
+
   @override
   Widget build(BuildContext context) {
+    String active(AsyncSnapshot snapshot) {
+      data = json.decode(snapshot.data.toString());
+      debugPrint('\nLatest data from WebSocket: $data');
+      return snapshot.data.toString();
+    }
+
     return StreamBuilder(
       stream: super.widget.bridge.communicationInterface.stream,
       builder: (context, snapshot) {
-        debugPrint('\nLatest data from WebSocket: ${snapshot.data}');
         debugPrint('Rebuilding');
 
         String message =
@@ -145,13 +159,14 @@ class BridgeStationState extends State<BridgeStation> {
                 ? snapshot.error.toString()
                 : switch (snapshot.connectionState) {
                   ConnectionState.waiting || ConnectionState.none => 'Loading',
-                  ConnectionState.active => 'Data: ${snapshot.data}',
+                  ConnectionState.active => active(snapshot),
 
                   ConnectionState.done => 'Final data: ${snapshot.data}',
                 };
         debugPrint('message: $message');
 
         return DefaultScaffold(
+          onRefresh: bridge.communicationInterface.reopenChannel,
           body: GridView.count(
             crossAxisSpacing: spacing,
             padding: EdgeInsets.all(spacing),
