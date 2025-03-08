@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:material_symbols_icons/symbols.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'buttons.dart';
 
 class WebsocketViewer extends StatefulWidget {
   const WebsocketViewer({super.key, required this.websocketUri});
@@ -16,7 +17,12 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
   // TODO remove tempWebsocketUri and knownBadUri
   final bool deliberateFail = false;
 
-  void _refresh() => setState(() {});
+  late WebSocketChannel channel;
+
+  void refresh() {
+    channel.sink.close();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +94,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
       appBar: AppBar(
         elevation: 20,
         title: Text('Kobayashi Maru'),
-        actions: [IconButton(onPressed: _refresh, icon: Icon(Symbols.refresh))],
+        actions: [RefreshButton(onRefresh: refresh)],
       ),
       body: ListView(
         shrinkWrap: true,
@@ -106,15 +112,14 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                 ConnectionState.active => fbNoneOrWaiting(),
 
                 ConnectionState.done => () {
-                  WebSocketChannel channel =
-                      (fbSnapshot.data)![1] as WebSocketChannel;
+                  channel = (fbSnapshot.data)![1] as WebSocketChannel;
 
                   return FractionallySizedBox(
                     widthFactor: 0.75,
                     child: StreamBuilder(
                       stream: channel.stream,
                       builder: (context, snapshot) {
-                        late String message;
+                        String message = '';
                         late Widget content;
 
                         (message, content) =
@@ -127,6 +132,8 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
                                   ConnectionState.done => done(snapshot),
                                 };
 
+                        // TODO remove extra setting (only to hide printing during development)
+                        message = '';
                         debugPrint(message);
                         return content;
                       },

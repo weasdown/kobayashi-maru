@@ -1,17 +1,39 @@
+/// @nodoc
+library;
+
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
-import 'src/presentation/websocket_viewer.dart';
+import 'src/application/bridge.dart';
+import 'dart:io' show Platform;
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isWindows) {
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.hidden,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.focus();
+    });
+  }
+
+  runApp(const Home(isServer: false));
 }
 
-final Uri webSocketServer = Uri(scheme: 'ws', host: 'localhost', port: 5678);
+class Home extends StatelessWidget {
+  const Home({super.key, required this.isServer});
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  /// The [Bridge] instance used throughout the simulation.
+  static Bridge mainBridge = Bridge();
 
-  // This widget is the root of your application.
+  // TODO implement usage of iServer: if true, acts as central simulation hub, else shows a user-selected BridgeStation.
+  final bool isServer;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,16 +57,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Home(),
+      home: Scaffold(
+        body: mainBridge.tactical,
+        // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
+      ),
     );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return WebsocketViewer(websocketUri: webSocketServer);
   }
 }
