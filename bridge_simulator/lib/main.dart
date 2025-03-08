@@ -108,7 +108,9 @@ class _HomeState extends State<Home> {
   Text text(String toDisplay) => Text(
     toDisplay,
     textAlign: TextAlign.center,
-    style: Theme.of(context).textTheme.headlineSmall,
+    style: Theme.of(
+      context,
+    ).textTheme.headlineSmall!.copyWith(color: Colors.white),
   );
 
   @override
