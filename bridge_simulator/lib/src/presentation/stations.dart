@@ -229,14 +229,21 @@ class TacticalBridgeStation extends BridgeStation {
 }
 
 class _TBSState extends BridgeStationState {
+  // TODO get this from server at startup rather than hardcoding
+  int remainingTorpedoes = 20;
+
   Future<void> firePhasers() async {
     debugPrint('\nFiring phasers!');
-    send('firePhasers');
+    send('fire_phasers');
   }
 
   void firePhotonTorpedoes() {
     debugPrint('\nFiring photon torpedoes!');
-    send('firePhotonTorpedoes');
+    send('fire_torpedoes');
+
+    var remaining = data?['torpedoes_remaining'];
+    debugPrint('remaining: $remaining');
+    remainingTorpedoes = remaining ?? remainingTorpedoes;
   }
 
   @override
