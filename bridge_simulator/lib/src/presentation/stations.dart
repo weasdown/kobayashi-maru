@@ -49,7 +49,7 @@ sealed class BridgeStation extends StatefulWidget {
 }
 
 class BridgeStationState extends State<BridgeStation> {
-  BridgeStationState() : channel = main.channel;
+  BridgeStationState() : channel = main.channel, data = {};
 
   WebSocketChannel channel;
 
@@ -61,33 +61,42 @@ class BridgeStationState extends State<BridgeStation> {
 
   static const double spacing = 32;
 
-  late List<Widget Function(String)> tiles;
+  late List<Widget Function(Map<String, dynamic>)> tiles;
 
-  Map<String, dynamic>? data;
+  Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
-    String active(AsyncSnapshot snapshot) {
-      data = json.decode(snapshot.data.toString());
+    Map<String, dynamic> active(AsyncSnapshot snapshot) {
+      print('Active');
+      data = json.decode(snapshot.data.toString()) as Map<String, dynamic>;
       debugPrint('\nLatest data from WebSocket: $data');
-      return snapshot.data.toString();
+      return data;
     }
+
+    Map<String, dynamic> blankStationInfo = Map<String, dynamic>.from({
+      'tactical': <String, dynamic>{},
+      'viewscreen': <String, dynamic>{},
+      'ops': <String, dynamic>{},
+      // TODO add other stations
+    });
 
     return StreamBuilder(
       stream: channel.stream,
       builder: (context, snapshot) {
         debugPrint('Rebuilding');
 
-        String message =
-            (snapshot.hasError)
-                ? snapshot.error.toString()
-                : switch (snapshot.connectionState) {
-                  ConnectionState.waiting || ConnectionState.none => 'Loading',
-                  ConnectionState.active => active(snapshot),
+        print('snapshot.data: ${snapshot.data}');
 
-                  ConnectionState.done => 'Final data: ${snapshot.data}',
-                };
-        debugPrint('message: $message');
+        Map<String, dynamic> message = switch (snapshot.connectionState) {
+          ConnectionState.waiting || ConnectionState.none => blankStationInfo,
+
+          ConnectionState.active => active(snapshot),
+
+          ConnectionState.done =>
+            (snapshot.hasError) ? throw snapshot.error! : snapshot.data,
+        };
+        // debugPrint('message: $message');
 
         return GridView.count(
           mainAxisSpacing: spacing,
@@ -96,7 +105,10 @@ class BridgeStationState extends State<BridgeStation> {
           padding: EdgeInsets.all(spacing),
           crossAxisCount: 1,
           children: List<Widget>.from(
-            tiles.map((Widget Function(String) tile) => tile.call(message)),
+            tiles.map<Widget>(
+              (Widget Function(Map<String, dynamic>) tile) =>
+                  tile.call(message),
+            ),
           ),
         );
       },
@@ -155,7 +167,7 @@ class _TBSState extends BridgeStationState {
     tiles = [
       (_) => firePhasersButton,
       (data) => FireTorpedoesButton(
-        data: data,
+        data: data.containsKey('tactical') ? data['tactical'] : {'Error': data},
         remainingTorpedoes: remainingTorpedoes,
         send: widget.send,
         setRemainingTorpedoes: (remaining) => remainingTorpedoes = remaining,

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -103,7 +102,7 @@ class FireTorpedoesButton extends StatelessWidget {
     required this.setRemainingTorpedoes,
   });
 
-  final String data;
+  final Map<String, dynamic> data;
 
   final int remainingTorpedoes;
 
@@ -120,19 +119,16 @@ class FireTorpedoesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> decoded;
     String displayValue;
 
     try {
-      decoded = json.decode(data);
       String key = 'torpedoes_remaining';
-      if (decoded.containsKey(key)) {
-        setRemainingTorpedoes(int.parse(decoded[key]));
+      if (data.containsKey(key)) {
+        setRemainingTorpedoes(data[key]);
       }
 
       displayValue = remainingTorpedoes.toString();
     } on FormatException {
-      // FIXME server should send initial value
       displayValue = 'Unknown';
     }
 

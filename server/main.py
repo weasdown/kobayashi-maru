@@ -33,6 +33,10 @@ async def simulate(websocket):
     bridge: Bridge = Bridge(websocket)
 
     while True:
+        bridge_json: str = bridge.toJSON()
+        print(f'bridge_json = {json.dumps(json.loads(bridge_json), indent=4)}')
+        await websocket.send(bridge_json)
+
         data: dict = json.loads(await websocket.recv())
         print(f'Received: {data}')
 
