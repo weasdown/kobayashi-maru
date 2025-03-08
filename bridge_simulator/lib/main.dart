@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/application/bridge.dart';
-import 'dart:io' show Platform;
+import 'src/presentation/buttons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +58,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 20,
+        title: Text('Kobayashi Maru'),
+        actions: [RefreshButton(onRefresh: refresh)],
+      ),
       body: Home.mainBridge.tactical,
       // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
     );
