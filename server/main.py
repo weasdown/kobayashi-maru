@@ -61,8 +61,7 @@ async def universe_state(server: Server, sim_universe: Universe):
         await asyncio.sleep(1)
 
 
-async def main(
-):
+async def main():
     local_only: bool = False
     host: str = 'localhost' if local_only else ''
 
