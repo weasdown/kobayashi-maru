@@ -12,6 +12,7 @@ void exitCleanly() {
 class DangerButton extends ElevatedButton {
   DangerButton({
     super.key,
+    this.active = true,
     required BuildContext Function() context,
     required super.onPressed,
     required String text,
@@ -26,11 +27,15 @@ class DangerButton extends ElevatedButton {
     super.statesController,
   }) : super(
          style: ButtonStyle(
-           backgroundColor: WidgetStateProperty.all<Color>(colour),
+           backgroundColor: WidgetStateProperty.all<Color>(
+             active ? Colors.red.shade900 : Colors.grey,
+           ),
            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
              RoundedRectangleBorder(
                borderRadius: BorderRadius.circular(18.0),
-               side: BorderSide(color: colour),
+               side: BorderSide(
+                 color: active ? Colors.red.shade900 : Colors.grey,
+               ),
              ),
            ),
          ),
@@ -45,7 +50,7 @@ class DangerButton extends ElevatedButton {
          ),
        );
 
-  static final Color colour = Colors.red.shade900;
+  final bool active;
 }
 
 Widget exitButton = Padding(
@@ -78,12 +83,62 @@ class RefreshButton extends StatelessWidget {
 
         color: Colors.white,
         onPressed: () {
-          debugPrint('\nRefreshing');
           if (onRefresh != null) {
             onRefresh!();
           }
         },
         icon: const Icon(Symbols.refresh),
+      ),
+    );
+  }
+}
+
+class FireTorpedoesButton extends StatelessWidget {
+  const FireTorpedoesButton({
+    super.key,
+    required this.data,
+    required this.remainingTorpedoes,
+    required this.send,
+    required this.setRemainingTorpedoes,
+  });
+
+  final Map<String, dynamic> data;
+
+  final int remainingTorpedoes;
+
+  final void Function(String) send;
+
+  final void Function(int) setRemainingTorpedoes;
+
+  void firePhotonTorpedoes() {
+    debugPrint('\nFiring photon torpedoes!');
+    send('fire_torpedoes');
+  }
+
+  bool get torpedoesAvailable => remainingTorpedoes > 0;
+
+  @override
+  Widget build(BuildContext context) {
+    String displayValue;
+
+    try {
+      String key = 'torpedoes_remaining';
+      if (data.containsKey(key)) {
+        setRemainingTorpedoes(data[key]);
+      }
+
+      displayValue = remainingTorpedoes.toString();
+    } on FormatException {
+      displayValue = 'Unknown';
+    }
+
+    return SizedBox(
+      height: 100,
+      child: DangerButton(
+        active: remainingTorpedoes > 0,
+        context: () => context,
+        text: 'Fire Photon Torpedoes\n($displayValue remaining)',
+        onPressed: torpedoesAvailable ? firePhotonTorpedoes : null,
       ),
     );
   }

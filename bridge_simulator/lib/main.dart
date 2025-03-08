@@ -1,11 +1,23 @@
-/// @nodoc
-library;
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'src/application/bridge.dart';
-import 'dart:io' show Platform;
+import 'src/application/ship.dart';
+import 'src/presentation/scaffold.dart';
+import 'src/presentation/server.dart';
+import 'src/presentation/stations.dart';
+
+// TODO switch scheme to (secure) 'wss'
+final Uri channelUri = Uri(
+  scheme: 'ws',
+  host: Platform.isWindows ? 'localhost' : '192.168.1.201',
+  port: 5678,
+);
+
+WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,45 +34,115 @@ void main() async {
     });
   }
 
-  runApp(const Home(isServer: false));
+  runApp(Home(station: BridgeStation.tactical));
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key, required this.isServer});
+class Home extends StatefulWidget {
+  Home({super.key, required BridgeStation station})
+    : isServer = false,
+      onConnected = station;
 
-  /// The [Bridge] instance used throughout the simulation.
-  static Bridge mainBridge = Bridge();
+  // // TODO implement usage of Home.server: if called, acts as central simulation hub, as opposed to a user-selected BridgeStation for Home().
+  // Home.server({super.key, Uri? channelUri})
+  //   : isServer = true,
+  //     channelUri = channelUri ?? defaultChannelUri,
+  //     onConnected = Server();
 
-  // TODO implement usage of iServer: if true, acts as central simulation hub, else shows a user-selected BridgeStation.
+  final FederationStarship ship = FederationStarship(
+    registry: 'NCC-1701-D',
+    name: 'USS Enterprise',
+  );
+
+  // TODO remove tempWebsocketUri and knownBadUri
+  final bool deliberateFail = false;
+
   final bool isServer;
+
+  final Widget onConnected;
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  (String, Widget) active(AsyncSnapshot snapshot) => (
+    snapshot.data,
+    Text(
+      snapshot.data,
+      textAlign: TextAlign.start,
+      style: Theme.of(context).textTheme.headlineSmall,
+    ),
+  );
+
+  late Stream stream = channel.stream;
+
+  Widget connect() {
+    if (widget.isServer) {
+      return Server();
+    } else {
+      // TODO once connected, set initial simulation state from first stream data.
+      debugPrint('\nConnecting to server at $channelUri...');
+      return FutureBuilder(
+        future: channel.ready,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return (snapshot.hasError)
+                ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: text(
+                    '${snapshot.error.runtimeType}: Connection could not be opened '
+                    'to WebSocket server at ${channelUri.toString()}',
+                  ),
+                )
+                : () {
+                  debugPrint(
+                    '\t- Connected. Returning Widget onConnected...\n',
+                  );
+                  return widget.onConnected;
+                }();
+          } else {
+            return Center(
+              child: FractionallySizedBox(
+                widthFactor: 0.8,
+                child: Column(
+                  children: [
+                    text('Connecting to server...'),
+                    Gap(30),
+                    LinearProgressIndicator(),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    }
+  }
+
+  // FIXME reconnect after channel close
+  void refresh() {
+    debugPrint('Refreshing... (_HomeState.refresh)');
+    channel.sink.close(1000);
+    setState(() {});
+  }
+
+  Text text(String toDisplay) => Text(
+    toDisplay,
+    textAlign: TextAlign.center,
+    style: Theme.of(
+      context,
+    ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+  );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Bridge Simulator',
+      title: 'Kobayashi Maru',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(
-        body: mainBridge.tactical,
-        // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
-      ),
+      home: DefaultScaffold(onRefresh: refresh, body: connect()),
     );
   }
 }

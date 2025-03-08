@@ -11,7 +11,7 @@ import '../presentation/stations.dart';
 class ServerInterface {
   ServerInterface();
 
-  WebSocketChannel? channel = openChannel();
+  WebSocketChannel channel = openChannel();
 
   /// The [Uri] that's used to access the [channel].
   // TODO switch scheme to (secure) 'wss'
@@ -21,13 +21,13 @@ class ServerInterface {
     port: 5678,
   );
 
-  static WebSocketChannel? openChannel() =>
+  static WebSocketChannel openChannel() =>
   // TODO once connected, set initial simulation state from first stream data.
   WebSocketChannel.connect(ServerInterface.channelUri);
 
   void reopenChannel() {
     debugPrint('Refreshing ServerInterface');
-    channel!.sink.close();
+    channel.sink.close();
     channel = openChannel();
   }
 
@@ -35,10 +35,10 @@ class ServerInterface {
     // TODO remove debugPrint
     message = transmission(station, message);
     debugPrint('Sending message from ${station.name}: $message');
-    channel!.sink.add(message);
+    channel.sink.add(message);
   }
 
-  late Stream stream = channel!.stream;
+  late Stream stream = channel.stream;
 
   String transmission(BridgeStation station, String data) =>
       json.encode({'station': station.name, 'data': data});

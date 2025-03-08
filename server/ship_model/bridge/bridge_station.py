@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 
 class BridgeStation:
     def __init__(self, websocket):

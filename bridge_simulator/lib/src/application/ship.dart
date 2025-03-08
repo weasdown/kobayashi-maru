@@ -1,40 +1,73 @@
-import 'ship_systems/communications.dart';
-import 'ship_systems/ship_systems.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+
+import '../presentation/stations.dart';
+import 'bridge.dart';
 import 'ship_systems/weapons.dart';
 import 'species.dart';
 
 /// Model of a ship as a whole.
 sealed class Ship {
-  Ship();
+  Ship({required this.bridge, required this.weapons});
 
-  late final Structure structure = Structure(ship: this);
+  late final WebSocketChannel channel;
 
-  late final Propulsion propulsion = Propulsion(ship: this);
+  final Bridge bridge;
 
-  late final Weapons weapons = Weapons(ship: this);
+  final Weapons weapons;
 
-  late final Communications communications = Communications(ship: this);
-
-  // TODO add other systems
-
-  void send({required String message, required ShipSystem source}) {
+  void send({required String message, required BridgeStation source}) {
     // TODO implement send() - pass message to communications system for sending.
     throw UnimplementedError();
   }
+
+  void takeDisruptorDamage();
+
+  void takePhaserDamage();
+
+  void takeTorpedoDamage();
 }
 
 final class FederationStarship extends Ship {
-  FederationStarship({required this.registry, required this.name}) : super();
+  FederationStarship({required this.registry, required this.name})
+    : super(bridge: GalaxyClassBridge(), weapons: GalaxyClassWeapons());
+
+  @override
+  GalaxyClassBridge get bridge => super.bridge as GalaxyClassBridge;
 
   /// E.g. "*USS Enterprise*"
   final String name;
 
   /// E.g. "NCC-1701-D" for the [*Galaxy*-class Enterprise-D](https://memory-alpha.fandom.com/wiki/USS_Enterprise_(NCC-1701-D)).
   final String registry;
+
+  @override
+  String toString() => '$name, $registry';
+
+  @override
+  void takeDisruptorDamage() {
+    // TODO: implement takeDisruptorDamage
+    throw UnimplementedError();
+  }
+
+  @override
+  void takePhaserDamage() {
+    // TODO: implement takePhaserDamage
+    throw UnimplementedError();
+  }
+
+  @override
+  void takeTorpedoDamage() {
+    // TODO: implement takeTorpedoDamage
+    throw UnimplementedError();
+  }
 }
 
 sealed class EnemyShip extends Ship {
-  EnemyShip._({required this.species});
+  EnemyShip._({
+    required this.species,
+    required super.bridge,
+    required super.weapons,
+  });
 
   final Species species;
 
@@ -43,14 +76,15 @@ sealed class EnemyShip extends Ship {
   factory EnemyShip.klingonBirdOfPrey() = KlingonBirdOfPrey;
 
   factory EnemyShip.romulanWarbird() = RomulanWarbird;
-
-  void takePhaserDamage();
-
-  void takeTorpedoDamage();
 }
 
 final class BorgCube extends EnemyShip {
-  BorgCube() : super._(species: Species.borg);
+  BorgCube()
+    : super._(
+        species: Species.borg,
+        bridge: BorgBridge(),
+        weapons: BorgWeapons(),
+      );
 
   @override
   void takePhaserDamage() {
@@ -61,12 +95,23 @@ final class BorgCube extends EnemyShip {
   @override
   void takeTorpedoDamage() {
     // TODO: implement takeTorpedoDamage
+    throw UnimplementedError();
+  }
+
+  @override
+  void takeDisruptorDamage() {
+    // TODO: implement takeDisruptorDamage
     throw UnimplementedError();
   }
 }
 
 final class KlingonBirdOfPrey extends EnemyShip {
-  KlingonBirdOfPrey() : super._(species: Species.klingon);
+  KlingonBirdOfPrey()
+    : super._(
+        species: Species.klingon,
+        bridge: KlingonBridge(),
+        weapons: KlingonWeapons(),
+      );
 
   @override
   void takePhaserDamage() {
@@ -77,12 +122,23 @@ final class KlingonBirdOfPrey extends EnemyShip {
   @override
   void takeTorpedoDamage() {
     // TODO: implement takeTorpedoDamage
+    throw UnimplementedError();
+  }
+
+  @override
+  void takeDisruptorDamage() {
+    // TODO: implement takeDisruptorDamage
     throw UnimplementedError();
   }
 }
 
 final class RomulanWarbird extends EnemyShip {
-  RomulanWarbird() : super._(species: Species.romulan);
+  RomulanWarbird()
+    : super._(
+        species: Species.romulan,
+        bridge: RomulanBridge(),
+        weapons: RomulanWeapons(),
+      );
 
   @override
   void takePhaserDamage() {
@@ -93,6 +149,12 @@ final class RomulanWarbird extends EnemyShip {
   @override
   void takeTorpedoDamage() {
     // TODO: implement takeTorpedoDamage
+    throw UnimplementedError();
+  }
+
+  @override
+  void takeDisruptorDamage() {
+    // TODO: implement takeDisruptorDamage
     throw UnimplementedError();
   }
 }

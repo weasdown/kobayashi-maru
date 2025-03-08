@@ -17,9 +17,9 @@ class Tactical(BridgeStation):
         echo: str = 'Firing phasers as commanded!'
         print(echo)
         self.phasers_firing = True
-        await self.websocket.send(json.dumps({'firing_phasers': True}))
+        # await self.websocket.send(json.dumps({'firing_phasers': True}))
         self.phasers_firing = False
-        await self.websocket.send(json.dumps({'firing_phasers': False}))
+        # await self.websocket.send(json.dumps({'firing_phasers': False}))
 
     async def fire_torpedoes(self):
         """Fires a [photon torpedo](https://memory-alpha.fandom.com/wiki/Photon_torpedo)."""
@@ -29,13 +29,21 @@ class Tactical(BridgeStation):
         if self.torpedoes_remaining > 0:
             self.torpedoes_remaining -= 1
             self.torpedoes_firing = False
-            await self.websocket.send(json.dumps({'torpedoes_remaining': self.torpedoes_remaining}))
+            # await self.websocket.send(json.dumps({'torpedoes_remaining': str(self.torpedoes_remaining)}))
         else:
-            await self.websocket.send(json.dumps({'torpedoes_firing_failed': 'remaining == 0'}))
+            self.torpedoes_firing = False
+        # await self.websocket.send(json.dumps({'torpedoes_firing_failed': 'remaining == 0'}))
+
+    def toJSON(self):
+        return json.dumps({'phasers_firing': self.phasers_firing, 'torpedoes_firing': self.torpedoes_firing,
+                           'torpedoes_remaining': self.torpedoes_remaining})
 
 
 class Viewscreen(BridgeStation):
     def __init__(self, websocket):
         """Models the Viewscreen at the front of the Bridge."""
         super().__init__(websocket)
-        pass
+
+    @staticmethod
+    def toJSON():
+        return json.dumps({})
