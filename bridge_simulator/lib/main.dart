@@ -22,13 +22,15 @@ void main() async {
     });
   }
 
-  runApp(const MyApp());
+  runApp(const Home());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
-  // This widget is the root of your application.
+  /// The [Bridge] instance used throughout the simulation.
+  static Bridge mainBridge = Bridge();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,20 +54,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Scaffold(body: Home()),
+      home: Scaffold(
+        body: mainBridge.tactical,
+        // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
+      ),
     );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  /// The [Bridge] instance used throughout the simulation.
-  static Bridge mainBridge = Bridge();
-
-  @override
-  Widget build(BuildContext context) {
-    return mainBridge.tactical;
-    // return WebsocketViewer(websocketUri: ServerInterface.channelUri);
   }
 }
