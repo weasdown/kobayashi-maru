@@ -18,6 +18,8 @@ from server.ship_model.bridge import Bridge
 from server.universe import ShipPosition, ShipState, Universe
 
 
+# TODO remove commented code throughout file
+
 async def noop(websocket):
     await websocket.wait_closed()
 
