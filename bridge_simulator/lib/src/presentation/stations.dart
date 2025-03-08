@@ -170,7 +170,7 @@ class BridgeStationState extends State<BridgeStation> {
           body: GridView.count(
             crossAxisSpacing: spacing,
             padding: EdgeInsets.all(spacing),
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             children: tiles,
           ),
         );
