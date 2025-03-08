@@ -22,14 +22,17 @@ void main() async {
     });
   }
 
-  runApp(const Home());
+  runApp(const Home(isServer: false));
 }
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({super.key, required this.isServer});
 
   /// The [Bridge] instance used throughout the simulation.
   static Bridge mainBridge = Bridge();
+
+  // TODO implement usage of iServer: if true, acts as central simulation hub, else shows a user-selected BridgeStation.
+  final bool isServer;
 
   @override
   Widget build(BuildContext context) {
