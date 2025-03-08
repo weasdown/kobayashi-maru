@@ -30,7 +30,14 @@ class KobayashiMaru extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Home(isServer: false);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Kobayashi Maru',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const Home(isServer: false),
+    );
   }
 }
 
@@ -50,16 +57,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Bridge Simulator',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: Scaffold(
-        body: Home.mainBridge.tactical,
-        // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
-      ),
+    return Scaffold(
+      body: Home.mainBridge.tactical,
+      // WebsocketViewer(websocketUri: ServerInterface.channelUri);),
     );
   }
 }
