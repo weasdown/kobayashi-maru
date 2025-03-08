@@ -94,7 +94,9 @@ class BridgeStationState extends State<BridgeStation> {
           ConnectionState.active => active(snapshot),
 
           ConnectionState.done =>
-            (snapshot.hasError) ? throw snapshot.error! : snapshot.data,
+            (snapshot.hasError)
+                ? throw snapshot.error!
+                : {'Done': snapshot.data},
         };
         // debugPrint('message: $message');
 
