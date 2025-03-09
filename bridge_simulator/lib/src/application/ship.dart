@@ -21,6 +21,7 @@ sealed class Ship {
     throw UnimplementedError();
   }
 
+  // TODO move take[weapon type]Damage() to Structure ShipSystem.
   void takeDisruptorDamage();
 
   void takePhaserDamage();
