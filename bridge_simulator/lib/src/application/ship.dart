@@ -35,15 +35,15 @@ final class FederationStarship extends Ship {
   @override
   GalaxyClassBridge get bridge => super.bridge as GalaxyClassBridge;
 
-  /// The Starship's Tactical system, controlling weapons, shields, communications and long-range sensors.
-  final Tactical tactical = Tactical();
-  // TODO add other ShipSystems
-
   /// E.g. "*USS Enterprise*"
   final String name;
 
   /// E.g. "NCC-1701-D" for the [*Galaxy*-class Enterprise-D](https://memory-alpha.fandom.com/wiki/USS_Enterprise_(NCC-1701-D)).
   final String registry;
+
+  /// The Starship's Tactical system, controlling weapons, shields, communications and long-range sensors.
+  final Tactical tactical = Tactical();
+  // TODO add other ShipSystems
 
   @override
   String toString() => '$name, $registry';
