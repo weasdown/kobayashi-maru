@@ -48,7 +48,6 @@ class KobayashiMaruServer {
       }
 
       String station = messageJSON['station'];
-      print('station: $station');
       String response = switch (station) {
         'Tactical' => await enterprise.tactical.dataHandler(messageJSON),
         // TODO: Handle this case.
