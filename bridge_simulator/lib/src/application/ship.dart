@@ -2,6 +2,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../presentation/stations.dart';
 import 'bridge.dart';
+import 'ship_systems/ship_systems.dart';
 import 'ship_systems/weapons.dart';
 import 'species.dart';
 
@@ -20,6 +21,7 @@ sealed class Ship {
     throw UnimplementedError();
   }
 
+  // TODO move take[weapon type]Damage() to Structure ShipSystem.
   void takeDisruptorDamage();
 
   void takePhaserDamage();
@@ -27,6 +29,7 @@ sealed class Ship {
   void takeTorpedoDamage();
 }
 
+/// A [Ship] owned and operated by the United Federation of Planets.
 final class FederationStarship extends Ship {
   FederationStarship({required this.registry, required this.name})
     : super(bridge: GalaxyClassBridge(), weapons: GalaxyClassWeapons());
@@ -39,6 +42,10 @@ final class FederationStarship extends Ship {
 
   /// E.g. "NCC-1701-D" for the [*Galaxy*-class Enterprise-D](https://memory-alpha.fandom.com/wiki/USS_Enterprise_(NCC-1701-D)).
   final String registry;
+
+  /// The Starship's Tactical system, controlling weapons, shields, communications and long-range sensors.
+  final Tactical tactical = Tactical();
+  // TODO add other ShipSystems
 
   @override
   String toString() => '$name, $registry';
@@ -61,6 +68,12 @@ final class FederationStarship extends Ship {
     throw UnimplementedError();
   }
 }
+
+/// The USS Enterprise-D, NCC-1701-D.
+final FederationStarship enterpriseD = FederationStarship(
+  registry: 'NCC-1701-D',
+  name: 'USS Enterprise',
+);
 
 sealed class EnemyShip extends Ship {
   EnemyShip._({

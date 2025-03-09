@@ -68,7 +68,7 @@ class BridgeStationState extends State<BridgeStation> {
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> active(AsyncSnapshot snapshot) {
-      print('Active');
+      debugPrint('Active');
       data = json.decode(snapshot.data.toString()) as Map<String, dynamic>;
       debugPrint('\nLatest data from WebSocket: $data');
       return data;
@@ -86,7 +86,7 @@ class BridgeStationState extends State<BridgeStation> {
       builder: (context, snapshot) {
         debugPrint('Rebuilding');
 
-        print('snapshot.data: ${snapshot.data}');
+        debugPrint('snapshot.data: ${snapshot.data}');
 
         Map<String, dynamic> message = switch (snapshot.connectionState) {
           ConnectionState.waiting || ConnectionState.none => blankStationInfo,

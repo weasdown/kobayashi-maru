@@ -5,17 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'server_connection_details.dart';
 import 'src/application/ship.dart';
 import 'src/presentation/scaffold.dart';
 import 'src/presentation/server.dart';
 import 'src/presentation/stations.dart';
-
-// TODO switch scheme to (secure) 'wss'
-final Uri channelUri = Uri(
-  scheme: 'ws',
-  host: Platform.isWindows ? 'localhost' : '192.168.1.201',
-  port: 5678,
-);
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
