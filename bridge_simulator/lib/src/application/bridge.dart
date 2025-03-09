@@ -18,30 +18,29 @@ final class GalaxyClassBridge extends Bridge {
   GalaxyClassBridge()
     : super(
         stations: [
-          viewscreen,
-          ops,
-          conn,
-          captainChair,
-          tactical,
-          scienceI,
-          scienceII,
-          missionOps,
-          environment,
-          engineering,
+          BridgeStation.viewscreen,
+          BridgeStation.ops,
+          BridgeStation.conn,
+          BridgeStation.captainChair,
+          BridgeStation.tactical,
+          BridgeStation.scienceI,
+          BridgeStation.scienceII,
+          BridgeStation.missionOps,
+          BridgeStation.environment,
+          BridgeStation.engineering,
         ],
       );
 
-  static final ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
-  static final OpsBridgeStation ops = BridgeStation.ops;
-  static final ConnBridgeStation conn = BridgeStation.conn;
-  static final CaptainChairBridgeStation captainChair =
-      BridgeStation.captainChair;
-  static final TacticalBridgeStation tactical = BridgeStation.tactical;
-  static final ScienceIBridgeStation scienceI = BridgeStation.scienceI;
-  static final ScienceIIBridgeStation scienceII = BridgeStation.scienceII;
-  static final MissionOpsBridgeStation missionOps = BridgeStation.missionOps;
-  static final EnvironmentBridgeStation environment = BridgeStation.environment;
-  static final EngineeringBridgeStation engineering = BridgeStation.engineering;
+  final ViewscreenBridgeStation viewscreen = BridgeStation.viewscreen;
+  final OpsBridgeStation ops = BridgeStation.ops;
+  final ConnBridgeStation conn = BridgeStation.conn;
+  final CaptainChairBridgeStation captainChair = BridgeStation.captainChair;
+  final TacticalBridgeStation tactical = BridgeStation.tactical;
+  final ScienceIBridgeStation scienceI = BridgeStation.scienceI;
+  final ScienceIIBridgeStation scienceII = BridgeStation.scienceII;
+  final MissionOpsBridgeStation missionOps = BridgeStation.missionOps;
+  final EnvironmentBridgeStation environment = BridgeStation.environment;
+  final EngineeringBridgeStation engineering = BridgeStation.engineering;
 }
 
 final class RomulanBridge extends Bridge {
