@@ -19,6 +19,8 @@ class KobayashiMaruServer {
         return server;
       });
 
+  static final FederationStarship enterprise = enterpriseD;
+
   static Future<KobayashiMaruServer> serve({
     String host = 'localhost',
     int port = 5678,
