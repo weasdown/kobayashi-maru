@@ -29,7 +29,7 @@ sealed class Ship {
   void takeTorpedoDamage();
 }
 
-/// A [Ship] owned and operated by the United Federation of Planets.
+/// A [Ship] owned and operated by the [United Federation of Planets](https://memory-alpha.fandom.com/wiki/United_Federation_of_Planets).
 final class FederationStarship extends Ship {
   FederationStarship({required this.registry, required this.name})
     : super(bridge: GalaxyClassBridge(), weapons: GalaxyClassWeapons());
