@@ -15,10 +15,13 @@ class BridgeStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(title),
-        subtitle: ListView(shrinkWrap: true, children: children),
+    return Flexible(
+      flex: 1,
+      child: Card(
+        child: ListTile(
+          title: Text(title),
+          subtitle: ListView(shrinkWrap: true, children: children),
+        ),
       ),
     );
   }
