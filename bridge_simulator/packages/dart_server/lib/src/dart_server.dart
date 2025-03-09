@@ -66,7 +66,7 @@ class KobayashiMaruServer {
     try {
       return jsonDecode(message);
     } on FormatException {
-      rethrow;
+      throw ArgumentError('message is not a valid JSON.');
     }
   }
 
