@@ -1,6 +1,3 @@
-/// A WebSocket server written in Dart.
-library;
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,6 +6,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
+/// A WebSocket server that serves the simulation data for the Kobayashi Maru simulator.
 class KobayashiMaruServer {
   KobayashiMaruServer._({String? host, this.port = serverPort})
     : host = host ?? serverHost;
