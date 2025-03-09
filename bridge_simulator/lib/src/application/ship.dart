@@ -67,6 +67,12 @@ final class FederationStarship extends Ship {
   }
 }
 
+/// The USS Enterprise-D, NCC-1701-D.
+final FederationStarship enterpriseD = FederationStarship(
+  registry: 'NCC-1701-D',
+  name: 'USS Enterprise',
+);
+
 sealed class EnemyShip extends Ship {
   EnemyShip._({
     required this.species,
