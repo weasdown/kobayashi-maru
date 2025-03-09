@@ -2,6 +2,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../presentation/stations.dart';
 import 'bridge.dart';
+import 'ship_systems/ship_systems.dart';
 import 'ship_systems/weapons.dart';
 import 'species.dart';
 
@@ -33,6 +34,10 @@ final class FederationStarship extends Ship {
 
   @override
   GalaxyClassBridge get bridge => super.bridge as GalaxyClassBridge;
+
+  /// The Starship's Tactical system, controlling weapons, shields, communications and long-range sensors.
+  final Tactical tactical = Tactical();
+  // TODO add other ShipSystems
 
   /// E.g. "*USS Enterprise*"
   final String name;
