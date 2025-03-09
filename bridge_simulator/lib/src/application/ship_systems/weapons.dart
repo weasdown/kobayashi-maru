@@ -5,6 +5,11 @@ final class Weapons extends ShipSystem {
   Weapons() : super();
 
   EnemyShip? target;
+
+  @override
+  dataHandler(Map<String, dynamic> data) {
+    throw UnimplementedError();
+  }
 }
 
 final class Phasers extends Weapons {
