@@ -47,6 +47,23 @@ class KobayashiMaruServer {
   final int port;
 }
 
+/// A function that processes data received from a client.
+final class DataHandler {
+  DataHandler({required this.function});
+
+  /// Runs the [DataHandler] on some [data].
+  Future<String> call(Map<String, dynamic> data) async {
+    if (!data.containsKey('data')) {
+      throw ArgumentError(
+        'data JSON does not contain the required "data" key.',
+      );
+    }
+    return await function(data);
+  }
+
+  Future<String> Function(Map<String, dynamic>) function;
+}
+
 void main() async {
   await KobayashiMaruServer.serve();
 }
