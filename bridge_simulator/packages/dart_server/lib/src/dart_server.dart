@@ -42,6 +42,14 @@ class KobayashiMaruServer {
     });
   });
 
+  static Map<String, dynamic> messageFromJSON(String message) {
+    try {
+      return jsonDecode(message);
+    } on FormatException {
+      rethrow;
+    }
+  }
+
   final String host;
 
   final int port;
