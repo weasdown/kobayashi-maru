@@ -1,6 +1,7 @@
 /// A WebSocket server written in Dart.
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bridge_simulator/bridge_simulator.dart';
@@ -14,7 +15,7 @@ class KobayashiMaruServer {
 
   // TODO refactor so server is higher-level than dart:io's HttpServer.
   Future<HttpServer> _serve() =>
-      shelf_io.serve(handler, host, port).then((server) {
+      shelf_io.serve(coreHandler, host, port).then((server) {
         print('Serving at ws://${server.address.host}:${server.port}');
         return server;
       });
@@ -35,10 +36,30 @@ class KobayashiMaruServer {
     return kmServer;
   }
 
-  static final Handler handler = webSocketHandler((webSocket, _) {
-    webSocket.stream.listen((message) {
+  static final Handler coreHandler = webSocketHandler((webSocket, _) {
+    webSocket.stream.listen((message) async {
       print('Received message: $message');
-      webSocket.sink.add(message);
+
+      Map<String, dynamic> messageJSON = messageFromJSON(message);
+      print('Message JSON: $messageJSON');
+
+      if (!messageJSON.containsKey('station')) {
+        throw ArgumentError('All messages must contain a "station" key');
+      }
+
+      String station = messageJSON['station'];
+      print('station: $station');
+      String response = switch (station) {
+        'Tactical' => await enterprise.tactical.dataHandler(messageJSON),
+        // TODO: Handle this case.
+        _ =>
+          throw UnimplementedError(
+            'Handling of data for station "$station" is not yet implemented',
+          ),
+      };
+
+      // Send the response back to the sender.
+      webSocket.sink.add(json.encode({'response': response}));
     });
   });
 
