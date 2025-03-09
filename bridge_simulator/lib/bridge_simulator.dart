@@ -3,6 +3,5 @@ library;
 
 export 'main.dart';
 export 'src/application/application.dart';
-export 'src/data/dart_server/dart_server.dart';
 export 'src/data/data.dart';
 export 'src/presentation/presentation.dart';
