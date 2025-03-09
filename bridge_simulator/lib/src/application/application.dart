@@ -2,3 +2,5 @@
 library;
 
 export 'bridge.dart';
+export 'ship.dart';
+export 'ship_systems/ship_systems.dart';
