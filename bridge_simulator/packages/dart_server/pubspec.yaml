@@ -13,6 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  bridge_simulator: ^0.1.0
+
   shelf: ^1.4.2
   shelf_web_socket: ^3.0.0
   # path: ^1.8.0

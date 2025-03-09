@@ -3,11 +3,13 @@ library;
 
 import 'dart:io';
 
+import 'package:bridge_simulator/bridge_simulator.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
 class KobayashiMaruServer {
-  KobayashiMaruServer._({this.host = 'localhost', this.port = 5678});
+  KobayashiMaruServer._({String? host, this.port = serverPort})
+    : host = host ?? serverHost;
 
   // TODO refactor so server is higher-level than dart:io's HttpServer.
   Future<HttpServer> _serve() =>

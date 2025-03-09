@@ -4,11 +4,11 @@ library;
 // TODO switch scheme to (secure) 'wss'
 import 'dart:io';
 
-String serverScheme = 'ws';
+const String serverScheme = 'ws';
 
-String serverHost = Platform.isWindows ? 'localhost' : '192.168.1.201';
+final String serverHost = Platform.isWindows ? 'localhost' : '192.168.1.201';
 
-int serverPort = 5678;
+const int serverPort = 5678;
 
 final Uri channelUri = Uri(
   scheme: serverScheme,

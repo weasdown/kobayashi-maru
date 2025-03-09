@@ -2,6 +2,7 @@
 library;
 
 export 'main.dart';
+export 'server_connection_details.dart';
 export 'src/application/application.dart';
 export 'src/data/data.dart';
 export 'src/presentation/presentation.dart';
