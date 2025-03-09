@@ -29,6 +29,7 @@ sealed class Ship {
   void takeTorpedoDamage();
 }
 
+/// A [Ship] owned and operated by the United Federation of Planets.
 final class FederationStarship extends Ship {
   FederationStarship({required this.registry, required this.name})
     : super(bridge: GalaxyClassBridge(), weapons: GalaxyClassWeapons());
