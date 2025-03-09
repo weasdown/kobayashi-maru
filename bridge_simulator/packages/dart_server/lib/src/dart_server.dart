@@ -4,6 +4,7 @@ library;
 import 'dart:io';
 
 import 'package:bridge_simulator/bridge_simulator.dart';
+import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
@@ -32,7 +33,7 @@ class KobayashiMaruServer {
     return kmServer;
   }
 
-  static final handler = webSocketHandler((webSocket, _) {
+  static final Handler handler = webSocketHandler((webSocket, _) {
     webSocket.stream.listen((message) {
       print('Received message: $message');
       webSocket.sink.add(message);
