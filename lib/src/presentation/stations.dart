@@ -9,6 +9,7 @@ import '../data/message.dart';
 import 'buttons.dart';
 
 /// A generic station, console or screen on the [Bridge].
+// TODO separate the BridgeStation's logic from its UI - see Flutter architecture guide: https://docs.flutter.dev/app-architecture/guide
 sealed class BridgeStation extends StatefulWidget {
   const BridgeStation._({super.key});
 
