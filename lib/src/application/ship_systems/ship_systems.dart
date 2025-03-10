@@ -1,7 +1,7 @@
-import 'package:bridge_simulator/src/application/ship_systems/weapons.dart';
 import 'package:dart_server/dart_server.dart';
 
 import '../ship.dart';
+import 'weapons.dart';
 
 abstract class ShipSystem {
   ShipSystem({
