@@ -18,6 +18,7 @@ sealed class BridgeStation extends StatefulWidget {
 
   static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
 
+  // TODO move Federation-specific bridge station static attributes to a new GalaxyClassBridgeStation class.
   static const OpsBridgeStation ops = OpsBridgeStation();
 
   static const ConnBridgeStation conn = ConnBridgeStation();
