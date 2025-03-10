@@ -1,13 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-/// Exits the app with a standard exit code.
-void exitCleanly() {
-  debugPrint('Exiting cleanly');
-  exit(0);
-}
+import '../application/exit.dart';
 
 /// An [ElevatedButton] whose styling signifies that its action is dangerous in some way.
 class DangerButton extends ElevatedButton {
