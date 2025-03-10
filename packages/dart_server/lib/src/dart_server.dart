@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:kobayashi_maru/kobayashi_maru.dart';
+import 'package:kobayashi_maru/kobayashi_maru.dart'
+    show serverHost, serverPort, FederationStarship, enterpriseD;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';

@@ -14,6 +14,7 @@ sealed class Bridge {
   late final Ship ship;
 }
 
+/// The type of [Bride] used on a *Galaxy*-class starship (i.e. in this simulation, a [FederationStarship]).
 final class GalaxyClassBridge extends Bridge {
   GalaxyClassBridge()
     : super(
@@ -43,14 +44,17 @@ final class GalaxyClassBridge extends Bridge {
   final EngineeringBridgeStation engineering = BridgeStation.engineering;
 }
 
+/// The type of [Bride] used on a [RomulanWarbird].
 final class RomulanBridge extends Bridge {
   RomulanBridge() : super(stations: []);
 }
 
+/// The type of [Bride] used on a [KlingonBirdOfPrey].
 final class KlingonBridge extends Bridge {
   KlingonBridge() : super(stations: []);
 }
 
+/// The type of [Bride] used on a [BorgCube].
 final class BorgBridge extends Bridge {
   BorgBridge() : super(stations: []);
 }
