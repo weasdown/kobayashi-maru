@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "bridge_simulator" "\0"
+            VALUE "FileDescription", "kobayashi_maru" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bridge_simulator" "\0"
+            VALUE "InternalName", "kobayashi_maru" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bridge_simulator.exe" "\0"
-            VALUE "ProductName", "bridge_simulator" "\0"
+            VALUE "OriginalFilename", "kobayashi_maru.exe" "\0"
+            VALUE "ProductName", "kobayashi_maru" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
