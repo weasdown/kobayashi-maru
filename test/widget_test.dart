@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bridge_simulator/bridge_simulator.dart';
+import 'package:kobayashi_maru/kobayashi_maru.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
