@@ -47,8 +47,8 @@ class KobayashiMaruServer {
       }
 
       String station = messageJSON['station'];
-      String response = switch (station) {
-        'Tactical' => await enterprise.tactical.dataHandler(messageJSON),
+      String response = switch (station.toLowerCase()) {
+        'tactical' => await enterprise.tactical.dataHandler(messageJSON),
         // TODO: Handle this case.
         _ =>
           throw UnimplementedError(
