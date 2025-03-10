@@ -6,7 +6,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../main.dart' as main;
 import '../application/bridge.dart';
 import '../data/message.dart';
-import 'buttons.dart';
+import 'views/buttons.dart';
 
 /// A generic station, console or screen on the [Bridge].
 // TODO separate the BridgeStation's logic from its UI - see Flutter architecture guide: https://docs.flutter.dev/app-architecture/guide

@@ -7,8 +7,8 @@ import 'package:window_manager/window_manager.dart';
 
 import 'server_connection_details.dart';
 import 'src/application/ship.dart';
-import 'src/presentation/scaffold.dart';
-import 'src/presentation/server.dart';
+import 'src/presentation/view_models/scaffold.dart';
+import 'src/presentation/views/server.dart';
 import 'src/presentation/stations.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
