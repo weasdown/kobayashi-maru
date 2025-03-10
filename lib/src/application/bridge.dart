@@ -14,6 +14,7 @@ sealed class Bridge {
   late final Ship ship;
 }
 
+/// The type of [Bride] used on a *Galaxy*-class starship (i.e. in this simulation, a [FederationStarship]).
 final class GalaxyClassBridge extends Bridge {
   GalaxyClassBridge()
     : super(
