@@ -1,10 +1,10 @@
-/// A WebSocket server written in Dart.
+/// A WebSocket python_server written in Dart.
 library;
 
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
-/// Example server, copied from: https://pub.dev/packages/shelf_web_socket
+/// Example python_server, copied from: https://pub.dev/packages/shelf_web_socket
 void main() {
   var handler = webSocketHandler((webSocket, _) {
     webSocket.stream.listen((message) {

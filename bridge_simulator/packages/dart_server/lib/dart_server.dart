@@ -1,4 +1,4 @@
-/// WebSocket server for the Kobayashi Maru simulator.
+/// WebSocket python_server for the Kobayashi Maru simulator.
 library;
 
 export 'src/dart_server.dart' show DataHandler;

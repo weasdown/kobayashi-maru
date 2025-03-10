@@ -56,7 +56,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
     (String, Widget) done(AsyncSnapshot snapshot) {
       String message =
           (snapshot.connectionState == ConnectionState.done)
-              ? 'Connection to server has closed. Final data:\n${snapshot.data}'
+              ? 'Connection to python_server has closed. Final data:\n${snapshot.data}'
               : (snapshot.hasData)
               ? snapshot.data
               : 'Very unexpected state!';
@@ -71,7 +71,7 @@ class _WebsocketViewerState extends State<WebsocketViewer> {
 
       if (error is WebSocketChannelException) {
         message =
-            'Connection could not be opened to WebSocket server at ${widget.websocketUri.toString()}';
+            'Connection could not be opened to WebSocket python_server at ${widget.websocketUri.toString()}';
         return (message, text(message));
       } else {
         message = 'snapshot has an unrecognised error:\n\n$error';

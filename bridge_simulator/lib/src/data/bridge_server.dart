@@ -7,7 +7,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../presentation/stations.dart';
 
-/// A client-side interface to the WebSocket connection that enables data to be shared with the simulation server.
+/// A client-side interface to the WebSocket connection that enables data to be shared with the simulation python_server.
 class ServerInterface {
   ServerInterface();
 

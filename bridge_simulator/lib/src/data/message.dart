@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../../main.dart';
 import '../presentation/stations.dart';
 
-/// A message sent to the WebSocket server.
+/// A message sent to the WebSocket python_server.
 final class Message {
   Message({required this.data, required this.station});
 
@@ -25,5 +25,5 @@ final class Message {
   }
 }
 
-/// Information received back from the WebSocket server after sending it a [Message].
+/// Information received back from the WebSocket python_server after sending it a [Message].
 final class Response {}
