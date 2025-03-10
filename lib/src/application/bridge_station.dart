@@ -1,5 +1,5 @@
-import 'package:kobayashi_maru/kobayashi_maru.dart';
-import 'package:kobayashi_maru/src/application/bridge_station_model.dart';
+import '../presentation/bridge_station_view.dart';
+import 'bridge_station_model.dart';
 
 abstract class BridgeStation {
   const BridgeStation._({required this.model, required this.widget});
