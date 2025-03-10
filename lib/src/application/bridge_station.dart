@@ -5,8 +5,7 @@ abstract class BridgeStation {
   const BridgeStation._({required this.model, required this.widget});
 
   /// A more human-readable name for this [BridgeStation].
-  String get name =>
-      runtimeType.toString().replaceFirst('BridgeStationModel', '');
+  String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
 
   static ViewscreenBridgeStation get viewscreen => ViewscreenBridgeStation();
 
