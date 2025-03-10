@@ -5,7 +5,7 @@
 #include <gdk/gdkx.h>
 #endif
 
-#include "flutter/generated_plugin_registrant.h"
+#include "../../bridge_simulator/packages/dart_server/windows/flutter/generated_plugin_registrant.h"
 
 #include <bitsdojo_window_linux/bitsdojo_window_plugin.h>
 

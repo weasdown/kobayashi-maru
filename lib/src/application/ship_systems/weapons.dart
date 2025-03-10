@@ -1,5 +1,5 @@
 import '../ship.dart';
-import '../ship_systems/ship_systems.dart';
+import 'ship_systems.dart';
 
 final class Weapons extends ShipSystem {
   Weapons() : super(dataHandlerFunction: _dataHandler);
