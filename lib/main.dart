@@ -135,6 +135,10 @@ class _HomeState extends State<Home> {
       title: 'Kobayashi Maru',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
+        // Recommended by the migration guide for Slider changes in Flutter 3.29 (https://docs.flutter.dev/release/breaking-changes/updated-material-3-slider#migration-guide)
+        // ignore: deprecated_member_use
+        sliderTheme: const SliderThemeData(year2023: false),
       ),
       home: DefaultScaffold(onRefresh: refresh, body: connect()),
     );
