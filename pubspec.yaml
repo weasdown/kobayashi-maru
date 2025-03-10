@@ -1,5 +1,5 @@
 name: kobayashi_maru
-description: "A Flutter simulator of the bridge of a Star Trek Constellation-class starship."
+description: "A Flutter recreation of Starfleet's Kobayashi Maru battle training simulator."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
