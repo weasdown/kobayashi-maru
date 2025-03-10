@@ -18,7 +18,7 @@ final class Phasers extends Weapons {
   bool firing = false;
 
   void fire() {
-    // TODO send message to python_server that firing torpedoes
+    // TODO send message to server that firing torpedoes
     firing = true;
     if (target != null) {
       target!.takePhaserDamage();
@@ -30,12 +30,12 @@ final class Phasers extends Weapons {
 final class Torpedoes extends Weapons {
   Torpedoes({required this.remaining});
 
-  int remaining; // TODO get from python_server rather than hard-coding
+  int remaining; // TODO get from server rather than hard-coding
 
   bool firing = false;
 
   void fire() {
-    // TODO send message to python_server that firing torpedoes
+    // TODO send message to server that firing torpedoes
     firing = true;
     remaining -= 1;
     if (target != null) {

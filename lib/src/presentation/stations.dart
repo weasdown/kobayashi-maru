@@ -38,7 +38,7 @@ sealed class BridgeStation extends StatefulWidget {
   static const EngineeringBridgeStation engineering =
       EngineeringBridgeStation();
 
-  /// Sends a message to the simulation python_server.
+  /// Sends a message to the simulation server.
   void send(String message) => Message.send(data: message, station: this);
 
   @override
@@ -147,7 +147,7 @@ class TacticalBridgeStation extends BridgeStation {
 }
 
 class _TBSState extends BridgeStationState {
-  // TODO get this from python_server at startup rather than hardcoding
+  // TODO get this from dart_server at startup rather than hardcoding
   int remainingTorpedoes = 20;
 
   Future<void> firePhasers() async {

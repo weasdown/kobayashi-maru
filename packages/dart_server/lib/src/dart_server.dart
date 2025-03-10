@@ -6,12 +6,12 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
-/// A WebSocket python_server that serves the simulation data for the Kobayashi Maru simulator.
+/// A WebSocket server that serves the simulation data for the Kobayashi Maru simulator.
 class KobayashiMaruServer {
   KobayashiMaruServer._({String? host, this.port = serverPort})
     : host = host ?? serverHost;
 
-  // TODO refactor so python_server is higher-level than dart:io's HttpServer.
+  // TODO refactor so server is higher-level than dart:io's HttpServer.
   Future<HttpServer> _serve() =>
       shelf_io.serve(coreHandler, host, port).then((server) {
         print('Serving at ws://${server.address.host}:${server.port}');

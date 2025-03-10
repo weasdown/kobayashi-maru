@@ -6,7 +6,7 @@ While the Kobayashi Maru exercise has been covered several times in Star Trek ca
 The linked video forms a useful reference for this project.
 
 ## Getting started
-1. Run the [server](packages/python_server) on a laptop/desktop.
+1. Run the [server](packages/dart_server) on a laptop/desktop.
 2. For each device that you want to use as a bridge station, run the [bridge_simulator](bridge_simulator) app and connect it to the server.
 
 

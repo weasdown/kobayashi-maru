@@ -1,4 +1,4 @@
-/// Details that the python_server will use to instantiate itself.
+/// Details that the dart_server will use to instantiate itself.
 library;
 
 // TODO switch scheme to (secure) 'wss'

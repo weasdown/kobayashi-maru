@@ -36,8 +36,8 @@ class Home extends StatefulWidget {
     : isServer = false,
       onConnected = station;
 
-  // // TODO implement usage of Home.python_server: if called, acts as central simulation hub, as opposed to a user-selected BridgeStation for Home().
-  // Home.python_server({super.key, Uri? channelUri})
+  // // TODO implement usage of Home.server: if called, acts as central simulation hub, as opposed to a user-selected BridgeStation for Home().
+  // Home.server({super.key, Uri? channelUri})
   //   : isServer = true,
   //     channelUri = channelUri ?? defaultChannelUri,
   //     onConnected = Server();
@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
       return Server();
     } else {
       // TODO once connected, set initial simulation state from first stream data.
-      debugPrint('\nConnecting to python_server at $channelUri...');
+      debugPrint('\nConnecting to server at $channelUri...');
       return FutureBuilder(
         future: channel.ready,
         builder: (context, snapshot) {
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: text(
                     '${snapshot.error.runtimeType}: Connection could not be opened '
-                    'to WebSocket python_server at ${channelUri.toString()}',
+                    'to WebSocket server at ${channelUri.toString()}',
                   ),
                 )
                 : () {
@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                 widthFactor: 0.8,
                 child: Column(
                   children: [
-                    text('Connecting to python_server...'),
+                    text('Connecting to server...'),
                     Gap(30),
                     LinearProgressIndicator(),
                   ],
