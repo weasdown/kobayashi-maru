@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'buttons.dart';
+import '../views/buttons.dart';
 
 class DefaultScaffold extends Scaffold {
   DefaultScaffold({

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../presentation/stations.dart';
+import '../application/bridge_station.dart';
 
 /// A client-side interface to the WebSocket connection that enables data to be shared with the simulation server.
 class ServerInterface {

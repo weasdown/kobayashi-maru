@@ -1,7 +1,7 @@
 /// App components that build the UI.
 library;
 
-export 'buttons.dart';
-export 'scaffold.dart';
+export 'views/buttons.dart';
+export 'view_models/scaffold.dart';
 export 'stations.dart';
-export 'websocket_viewer.dart';
+export 'views/websocket_viewer.dart';

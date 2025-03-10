@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-void exitCleanly() {
-  debugPrint('Exiting cleanly');
-  exit(0);
-}
+import '../../application/exit.dart';
 
 /// An [ElevatedButton] whose styling signifies that its action is dangerous in some way.
 class DangerButton extends ElevatedButton {
@@ -93,6 +88,7 @@ class RefreshButton extends StatelessWidget {
   }
 }
 
+// TODO move to a file with tactical widgets
 class FireTorpedoesButton extends StatelessWidget {
   const FireTorpedoesButton({
     super.key,

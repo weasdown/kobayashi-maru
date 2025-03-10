@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../../main.dart';
-import '../presentation/stations.dart';
+import '../application/bridge_station.dart';
 
 /// A message sent to the WebSocket server.
 final class Message {
