@@ -1,57 +1,57 @@
+import 'package:kobayashi_maru/src/application/bridge_station.dart';
+
 import '../data/message.dart';
 import 'bridge.dart';
 
 /// A model for a station/console on a [Bridge].
 sealed class BridgeStationModel {
-  const BridgeStationModel();
-
-  /// A more human-readable name for this [BridgeStation].
-  String get name =>
-      runtimeType.toString().replaceFirst('BridgeStationModel', '');
+  BridgeStationModel();
 
   /// Sends a message to the simulation server.
-  void send(String message) => Message.send(data: message, station: this);
+  void send(String message) => Message.send(data: message, station: station);
+
+  late final BridgeStation station;
 
   @override
-  String toString() => name;
+  String toString() => '${station.name} model';
 }
 
 final class ViewscreenBridgeStationModel extends BridgeStationModel {
-  const ViewscreenBridgeStationModel() : super();
+  ViewscreenBridgeStationModel() : super();
 }
 
 final class OpsBridgeStationModel extends BridgeStationModel {
-  const OpsBridgeStationModel() : super();
+  OpsBridgeStationModel() : super();
 }
 
 final class ConnBridgeStationModel extends BridgeStationModel {
-  const ConnBridgeStationModel() : super();
+  ConnBridgeStationModel() : super();
 }
 
 final class CaptainChairBridgeStationModel extends BridgeStationModel {
-  const CaptainChairBridgeStationModel() : super();
+  CaptainChairBridgeStationModel() : super();
 }
 
 final class TacticalBridgeStationModel extends BridgeStationModel {
-  const TacticalBridgeStationModel() : super();
+  TacticalBridgeStationModel() : super();
 }
 
 final class ScienceIBridgeStationModel extends BridgeStationModel {
-  const ScienceIBridgeStationModel() : super();
+  ScienceIBridgeStationModel() : super();
 }
 
 final class ScienceIIBridgeStationModel extends BridgeStationModel {
-  const ScienceIIBridgeStationModel() : super();
+  ScienceIIBridgeStationModel() : super();
 }
 
 final class MissionOpsBridgeStationModel extends BridgeStationModel {
-  const MissionOpsBridgeStationModel() : super();
+  MissionOpsBridgeStationModel() : super();
 }
 
 final class EnvironmentBridgeStationModel extends BridgeStationModel {
-  const EnvironmentBridgeStationModel() : super();
+  EnvironmentBridgeStationModel() : super();
 }
 
 final class EngineeringBridgeStationModel extends BridgeStationModel {
-  const EngineeringBridgeStationModel() : super();
+  EngineeringBridgeStationModel() : super();
 }

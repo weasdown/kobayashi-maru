@@ -1,4 +1,4 @@
-import '../presentation/stations.dart';
+import 'bridge_station.dart';
 import 'ship.dart';
 
 /// The room from where the bridge crew control the [Ship].

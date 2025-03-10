@@ -6,10 +6,10 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'server_connection_details.dart';
+import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
 import 'src/presentation/view_models/scaffold.dart';
 import 'src/presentation/views/server.dart';
-import 'src/presentation/stations.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
@@ -34,7 +34,7 @@ void main() async {
 class Home extends StatefulWidget {
   Home({super.key, required BridgeStation station})
     : isServer = false,
-      onConnected = station;
+      onConnected = station.widget;
 
   // // TODO implement usage of Home.server: if called, acts as central simulation hub, as opposed to a user-selected BridgeStation for Home().
   // Home.server({super.key, Uri? channelUri})

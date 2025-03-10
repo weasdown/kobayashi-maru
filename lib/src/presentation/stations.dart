@@ -5,53 +5,55 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../main.dart' as main;
 import '../application/bridge.dart';
+import '../application/bridge_station.dart';
 import '../data/message.dart';
 import 'views/buttons.dart';
 
 /// A generic station, console or screen on the [Bridge].
 // TODO separate the BridgeStation's logic from its UI - see Flutter architecture guide: https://docs.flutter.dev/app-architecture/guide
-sealed class BridgeStation extends StatefulWidget {
-  const BridgeStation._({super.key});
+sealed class BridgeStationView extends StatefulWidget {
+  const BridgeStationView._({super.key});
 
-  /// A more human-readable name for this [BridgeStation].
-  String get name => runtimeType.toString().replaceFirst('BridgeStation', '');
+  /// The container for the [BridgeStationView]'s logic.
+  BridgeStation get station;
 
-  static const ViewscreenBridgeStation viewscreen = ViewscreenBridgeStation();
+  static ViewscreenBridgeStationView viewscreen = ViewscreenBridgeStationView();
 
-  // TODO move Federation-specific bridge station static attributes to a new GalaxyClassBridgeStation class.
-  static const OpsBridgeStation ops = OpsBridgeStation();
+  // TODO move Federation-specific bridge station static attributes to a new GalaxyClassBridgeStationView class.
+  static OpsBridgeStationView ops = OpsBridgeStationView();
 
-  static const ConnBridgeStation conn = ConnBridgeStation();
+  static ConnBridgeStationView conn = ConnBridgeStationView();
 
-  static const CaptainChairBridgeStation captainChair =
-      CaptainChairBridgeStation();
+  static CaptainChairBridgeStationView captainChair =
+      CaptainChairBridgeStationView();
 
-  static const TacticalBridgeStation tactical = TacticalBridgeStation();
+  static TacticalBridgeStationView tactical = TacticalBridgeStationView();
 
-  static const ScienceIBridgeStation scienceI = ScienceIBridgeStation();
+  static ScienceIBridgeStationView scienceI = ScienceIBridgeStationView();
 
-  static const ScienceIIBridgeStation scienceII = ScienceIIBridgeStation();
+  static ScienceIIBridgeStationView scienceII = ScienceIIBridgeStationView();
 
-  static const MissionOpsBridgeStation missionOps = MissionOpsBridgeStation();
+  static MissionOpsBridgeStationView missionOps = MissionOpsBridgeStationView();
 
-  static const EnvironmentBridgeStation environment =
-      EnvironmentBridgeStation();
+  static EnvironmentBridgeStationView environment =
+      EnvironmentBridgeStationView();
 
-  static const EngineeringBridgeStation engineering =
-      EngineeringBridgeStation();
+  static EngineeringBridgeStationView engineering =
+      EngineeringBridgeStationView();
 
   /// Sends a message to the simulation server.
-  void send(String message) => Message.send(data: message, station: this);
+  void send(String message) => Message.send(data: message, station: station);
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) => name;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) =>
+      '${station.name} view';
 
   @override
-  State<BridgeStation> createState() => BridgeStationState();
+  State<BridgeStationView> createState() => BridgeStationViewState();
 }
 
-class BridgeStationState extends State<BridgeStation> {
-  BridgeStationState() : channel = main.channel, data = {};
+class BridgeStationViewState extends State<BridgeStationView> {
+  BridgeStationViewState() : channel = main.channel, data = {};
 
   WebSocketChannel channel;
 
@@ -121,34 +123,49 @@ class BridgeStationState extends State<BridgeStation> {
 }
 
 /// Displays various views to the bridge crew, often of what's in front of the ship.
-final class ViewscreenBridgeStation extends BridgeStation {
-  const ViewscreenBridgeStation({super.key}) : super._();
+final class ViewscreenBridgeStationView extends BridgeStationView {
+  const ViewscreenBridgeStationView({super.key}) : super._();
+
+  @override
+  ViewscreenBridgeStation get station => ViewscreenBridgeStation();
 }
 
 /// Responsible for communications, scanning and course navigation.
-final class OpsBridgeStation extends BridgeStation {
-  const OpsBridgeStation({super.key}) : super._();
+final class OpsBridgeStationView extends BridgeStationView {
+  const OpsBridgeStationView({super.key}) : super._();
+
+  @override
+  OpsBridgeStation get station => OpsBridgeStation();
 }
 
 /// Responsible for piloting the ship.
-final class ConnBridgeStation extends BridgeStation {
-  const ConnBridgeStation({super.key}) : super._();
+final class ConnBridgeStationView extends BridgeStationView {
+  const ConnBridgeStationView({super.key}) : super._();
+
+  @override
+  ConnBridgeStation get station => ConnBridgeStation();
 }
 
 /// Provides key information to the ship's Captain.
-final class CaptainChairBridgeStation extends BridgeStation {
-  const CaptainChairBridgeStation({super.key}) : super._();
+final class CaptainChairBridgeStationView extends BridgeStationView {
+  const CaptainChairBridgeStationView({super.key}) : super._();
+
+  @override
+  CaptainChairBridgeStation get station => CaptainChairBridgeStation();
 }
 
 /// Responsible for weapons, shields, long-range sensors and communications (supporting the [OpsBridgeStation]).
-class TacticalBridgeStation extends BridgeStation {
-  const TacticalBridgeStation({super.key}) : super._();
+class TacticalBridgeStationView extends BridgeStationView {
+  const TacticalBridgeStationView({super.key}) : super._();
 
   @override
-  BridgeStationState createState() => _TBSState();
+  BridgeStationViewState createState() => _TBSState();
+
+  @override
+  TacticalBridgeStation get station => TacticalBridgeStation();
 }
 
-class _TBSState extends BridgeStationState {
+class _TBSState extends BridgeStationViewState {
   // TODO get this from dart_server at startup rather than hardcoding
   int remainingTorpedoes = 20;
 
@@ -183,28 +200,43 @@ class _TBSState extends BridgeStationState {
 }
 
 /// Responsible for science investigations.
-final class ScienceIBridgeStation extends BridgeStation {
-  const ScienceIBridgeStation({super.key}) : super._();
+final class ScienceIBridgeStationView extends BridgeStationView {
+  const ScienceIBridgeStationView({super.key}) : super._();
+
+  @override
+  ScienceIBridgeStation get station => ScienceIBridgeStation();
 }
 
 /// Responsible for science investigations.
-final class ScienceIIBridgeStation extends BridgeStation {
-  const ScienceIIBridgeStation({super.key}) : super._();
+final class ScienceIIBridgeStationView extends BridgeStationView {
+  const ScienceIIBridgeStationView({super.key}) : super._();
+
+  @override
+  ScienceIIBridgeStation get station => ScienceIIBridgeStation();
 }
 
 /// Enables access to data about the ship's current mission (e.g. about nearby planets).
-final class MissionOpsBridgeStation extends BridgeStation {
-  const MissionOpsBridgeStation({super.key}) : super._();
+final class MissionOpsBridgeStationView extends BridgeStationView {
+  const MissionOpsBridgeStationView({super.key}) : super._();
+
+  @override
+  MissionOpsBridgeStation get station => MissionOpsBridgeStation();
 }
 
 /// Responsible for controlling the life support system to maintain a habitable and comfortable environment for the crew .
-final class EnvironmentBridgeStation extends BridgeStation {
-  const EnvironmentBridgeStation({super.key}) : super._();
+final class EnvironmentBridgeStationView extends BridgeStationView {
+  const EnvironmentBridgeStationView({super.key}) : super._();
+
+  @override
+  EnvironmentBridgeStation get station => EnvironmentBridgeStation();
 }
 
 /// Responsible for the ship's engines, transporters and other engineering systems.
 ///
 /// This is a backup to the consoles found in Main Engineering.
-final class EngineeringBridgeStation extends BridgeStation {
-  const EngineeringBridgeStation({super.key}) : super._();
+final class EngineeringBridgeStationView extends BridgeStationView {
+  const EngineeringBridgeStationView({super.key}) : super._();
+
+  @override
+  EngineeringBridgeStation get station => EngineeringBridgeStation();
 }

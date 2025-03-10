@@ -1,7 +1,7 @@
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../presentation/stations.dart';
 import 'bridge.dart';
+import 'bridge_station.dart';
 import 'ship_systems/ship_systems.dart';
 import 'ship_systems/weapons.dart';
 import 'species.dart';
