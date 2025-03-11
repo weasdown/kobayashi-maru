@@ -1,12 +1,12 @@
 import 'package:kobayashi_maru/src/application/ship.dart';
 
-// import 'audio_player.dart';
+import 'audio_player.dart';
 
 /// The core simulator for the whole broader program.
 final class Simulator {
   Simulator();
 
-  // SoundPlayer get soundPlayer => SoundPlayer();
+  final SoundPlayer player = SoundPlayer();
 
   /// The USS Enterprise-D, NCC-1701-D.
   static final FederationStarship enterpriseD = FederationStarship(

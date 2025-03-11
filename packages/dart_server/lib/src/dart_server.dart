@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:kobayashi_maru/kobayashi_maru.dart'
     show FederationStarship, Simulator, serverHost, serverPort;
 import 'package:shelf/shelf.dart';
@@ -92,5 +93,7 @@ final class DataHandler {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await KobayashiMaruServer.serve();
 }

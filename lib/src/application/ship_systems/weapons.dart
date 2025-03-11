@@ -1,12 +1,11 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-
-// import '../../../main.dart';
+import '../../../main.dart';
 import '../ship.dart';
 import 'ship_systems.dart';
 
 final class Weapons extends ShipSystem {
   Weapons() : super(dataHandlerFunction: _dataHandler);
+
+  static const String soundFilePath = 'sounds/files/weapons';
 
   EnemyShip? target;
 
@@ -82,13 +81,8 @@ final class GalaxyClassWeapons extends Weapons {
     // TODO add targeting
     firingPhasers = true;
 
-    WidgetsFlutterBinding.ensureInitialized();
-    final player = AudioPlayer();
-    player.play(AssetSource('ten_forward_doors.mp3')); // TODO use correct file
-
-    // // AudioPlayer player = AudioPlayer();
-    // // player.play();
-    // player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
+    // TODO if target will be destroyed by this phaser hit, play 'assets/sounds/files/explosions/tng_phaser_strike.mp3' that includes an explosion at the end.
+    simulator.player.play('${Weapons.soundFilePath}/tng_phaser_clean.mp3');
 
     if (target != null) {
       target!.takePhaserDamage();

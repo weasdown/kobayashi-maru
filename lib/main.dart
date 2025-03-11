@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -9,13 +8,13 @@ import 'package:window_manager/window_manager.dart';
 import 'server_connection_details.dart';
 import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
-// import 'src/application/simulator.dart';
+import 'src/application/simulator.dart';
 import 'src/presentation/view_models/scaffold.dart';
 import 'src/presentation/views/server.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
-AudioPlayer player = AudioPlayer();
+final Simulator simulator = Simulator();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,8 +63,6 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  // static final Simulator simulator = Simulator();
-
   (String, Widget) active(AsyncSnapshot snapshot) => (
     snapshot.data,
     Text(
@@ -134,14 +131,6 @@ class HomeState extends State<Home> {
       context,
     ).textTheme.headlineSmall!.copyWith(color: Colors.white),
   );
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Create the audio player.
-    player = AudioPlayer();
-  }
 
   @override
   Widget build(BuildContext context) {
