@@ -1,3 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+
+// import '../../../main.dart';
 import '../ship.dart';
 import 'ship_systems.dart';
 
@@ -20,6 +24,14 @@ final class Phasers extends Weapons {
   void fire() {
     // TODO send message to server that firing torpedoes
     firing = true;
+
+    // WidgetsFlutterBinding.ensureInitialized();
+
+    // // Create the audio player.
+    // AudioPlayer player = AudioPlayer();
+    // player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
+
+    // HomeState.player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
     if (target != null) {
       target!.takePhaserDamage();
     }
@@ -64,12 +76,27 @@ final class GalaxyClassWeapons extends Weapons {
     throw UnimplementedError();
   }
 
+  // TODO merge Phasers.fire() into here
   /// Fires the ship's [phasers].
   String firePhasers() {
     // TODO add targeting
     firingPhasers = true;
+
+    WidgetsFlutterBinding.ensureInitialized();
+    final player = AudioPlayer();
+    player.play(AssetSource('ten_forward_doors.mp3')); // TODO use correct file
+
+    // // AudioPlayer player = AudioPlayer();
+    // // player.play();
+    // player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
+
+    if (target != null) {
+      target!.takePhaserDamage();
+    }
+
     String message = 'Firing phasers, Captain!';
     firingPhasers = false;
+
     return message;
   }
 
