@@ -33,29 +33,37 @@ abstract class BridgeStation {
   final BridgeStationView widget;
 }
 
+// TODO implement tiles for all subtypes of BridgeStation
+
 final class ViewscreenBridgeStation extends BridgeStation {
   ViewscreenBridgeStation()
     : super._(
         model: ViewscreenBridgeStationModel(),
-        widget: ViewscreenBridgeStationView(),
+        widget: ViewscreenBridgeStationView(tiles: []),
       );
 }
 
 final class OpsBridgeStation extends BridgeStation {
   OpsBridgeStation()
-    : super._(model: OpsBridgeStationModel(), widget: OpsBridgeStationView());
+    : super._(
+        model: OpsBridgeStationModel(),
+        widget: OpsBridgeStationView(tiles: []),
+      );
 }
 
 final class ConnBridgeStation extends BridgeStation {
   ConnBridgeStation()
-    : super._(model: ConnBridgeStationModel(), widget: ConnBridgeStationView());
+    : super._(
+        model: ConnBridgeStationModel(),
+        widget: ConnBridgeStationView(tiles: []),
+      );
 }
 
 final class CaptainChairBridgeStation extends BridgeStation {
   CaptainChairBridgeStation()
     : super._(
         model: CaptainChairBridgeStationModel(),
-        widget: CaptainChairBridgeStationView(),
+        widget: CaptainChairBridgeStationView(tiles: []),
       );
 }
 
@@ -63,7 +71,7 @@ final class TacticalBridgeStation extends BridgeStation {
   TacticalBridgeStation()
     : super._(
         model: TacticalBridgeStationModel(),
-        widget: TacticalBridgeStationView(),
+        widget: TacticalBridgeStationView(tiles: []),
       );
 }
 
@@ -71,7 +79,7 @@ final class ScienceIBridgeStation extends BridgeStation {
   ScienceIBridgeStation()
     : super._(
         model: ScienceIBridgeStationModel(),
-        widget: ScienceIBridgeStationView(),
+        widget: ScienceIBridgeStationView(tiles: []),
       );
 }
 
@@ -79,7 +87,7 @@ final class ScienceIIBridgeStation extends BridgeStation {
   ScienceIIBridgeStation()
     : super._(
         model: ScienceIIBridgeStationModel(),
-        widget: ScienceIIBridgeStationView(),
+        widget: ScienceIIBridgeStationView(tiles: []),
       );
 }
 
@@ -87,7 +95,7 @@ final class MissionOpsBridgeStation extends BridgeStation {
   MissionOpsBridgeStation()
     : super._(
         model: MissionOpsBridgeStationModel(),
-        widget: MissionOpsBridgeStationView(),
+        widget: MissionOpsBridgeStationView(tiles: []),
       );
 }
 
@@ -95,7 +103,7 @@ final class EnvironmentBridgeStation extends BridgeStation {
   EnvironmentBridgeStation()
     : super._(
         model: EnvironmentBridgeStationModel(),
-        widget: EnvironmentBridgeStationView(),
+        widget: EnvironmentBridgeStationView(tiles: []),
       );
 }
 
@@ -103,6 +111,6 @@ final class EngineeringBridgeStation extends BridgeStation {
   EngineeringBridgeStation()
     : super._(
         model: EngineeringBridgeStationModel(),
-        widget: EngineeringBridgeStationView(),
+        widget: EngineeringBridgeStationView(tiles: []),
       );
 }
