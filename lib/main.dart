@@ -8,13 +8,17 @@ import 'package:window_manager/window_manager.dart';
 import 'server_connection_details.dart';
 import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
+import 'src/application/simulator.dart';
 import 'src/presentation/view_models/scaffold.dart';
 import 'src/presentation/views/server.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
+final Simulator simulator = Simulator();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   if (Platform.isWindows) {
     await windowManager.ensureInitialized();
 
@@ -55,10 +59,10 @@ class Home extends StatefulWidget {
   final Widget onConnected;
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   (String, Widget) active(AsyncSnapshot snapshot) => (
     snapshot.data,
     Text(

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:kobayashi_maru/kobayashi_maru.dart'
-    show serverHost, serverPort, FederationStarship, enterpriseD;
+    show FederationStarship, Simulator, serverHost, serverPort;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
@@ -19,7 +20,7 @@ class KobayashiMaruServer {
         return server;
       });
 
-  static final FederationStarship enterprise = enterpriseD;
+  static final FederationStarship enterprise = Simulator.enterpriseD;
 
   static Future<KobayashiMaruServer> serve({
     String host = 'localhost',
@@ -92,5 +93,7 @@ final class DataHandler {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await KobayashiMaruServer.serve();
 }

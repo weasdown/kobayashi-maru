@@ -1,8 +1,11 @@
+import '../../../main.dart';
 import '../ship.dart';
 import 'ship_systems.dart';
 
 final class Weapons extends ShipSystem {
   Weapons() : super(dataHandlerFunction: _dataHandler);
+
+  static const String soundFilePath = 'sounds/files/weapons';
 
   EnemyShip? target;
 
@@ -20,6 +23,14 @@ final class Phasers extends Weapons {
   void fire() {
     // TODO send message to server that firing torpedoes
     firing = true;
+
+    // WidgetsFlutterBinding.ensureInitialized();
+
+    // // Create the audio player.
+    // AudioPlayer player = AudioPlayer();
+    // player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
+
+    // HomeState.player.play(AssetSource('weapons/tng_phaser_clean.mp3'));
     if (target != null) {
       target!.takePhaserDamage();
     }
@@ -64,12 +75,22 @@ final class GalaxyClassWeapons extends Weapons {
     throw UnimplementedError();
   }
 
+  // TODO merge Phasers.fire() into here
   /// Fires the ship's [phasers].
   String firePhasers() {
     // TODO add targeting
     firingPhasers = true;
+
+    // TODO if target will be destroyed by this phaser hit, play 'assets/sounds/files/explosions/tng_phaser_strike.mp3' that includes an explosion at the end.
+    simulator.player.play('${Weapons.soundFilePath}/tng_phaser_clean.mp3');
+
+    if (target != null) {
+      target!.takePhaserDamage();
+    }
+
     String message = 'Firing phasers, Captain!';
     firingPhasers = false;
+
     return message;
   }
 
@@ -77,8 +98,17 @@ final class GalaxyClassWeapons extends Weapons {
   String fireTorpedoes() {
     // TODO add targeting
     firingTorpedoes = true;
+
+    // TODO if target will be destroyed by this phaser hit, play an explosion after this clip.
+    simulator.player.play('${Weapons.soundFilePath}/tng_torpedo3_clean.mp3');
+
+    if (target != null) {
+      target!.takeTorpedoDamage();
+    }
+
     String message = 'Firing torpedoes, Captain!';
     firingTorpedoes = false;
+
     return message;
   }
 }
