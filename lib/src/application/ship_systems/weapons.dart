@@ -98,8 +98,17 @@ final class GalaxyClassWeapons extends Weapons {
   String fireTorpedoes() {
     // TODO add targeting
     firingTorpedoes = true;
+
+    // TODO if target will be destroyed by this phaser hit, play 'assets/sounds/files/explosions/tng_phaser_strike.mp3' that includes an explosion at the end.
+    simulator.player.play('${Weapons.soundFilePath}/tng_torpedo3_clean.mp3');
+
+    if (target != null) {
+      target!.takeTorpedoDamage();
+    }
+
     String message = 'Firing torpedoes, Captain!';
     firingTorpedoes = false;
+
     return message;
   }
 }
