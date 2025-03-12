@@ -122,6 +122,7 @@ class HomeState extends State<Home> {
     debugPrint('Refreshing... (_HomeState.refresh)');
     channel.sink.close(1000);
     setState(() {});
+    channel = WebSocketChannel.connect(channelUri);
   }
 
   Text text(String toDisplay) => Text(
