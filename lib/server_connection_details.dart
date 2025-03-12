@@ -1,12 +1,13 @@
 /// Details that the dart_server will use to instantiate itself.
 library;
 
-// TODO switch scheme to (secure) 'wss'
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
+// TODO switch scheme to (secure) 'wss'
 const String serverScheme = 'ws';
 
-final String serverHost = Platform.isWindows ? 'localhost' : '192.168.1.201';
+final String serverHost =
+    UniversalPlatform.isDesktopOrWeb ? 'localhost' : '192.168.1.201';
 
 const int serverPort = 5678;
 
