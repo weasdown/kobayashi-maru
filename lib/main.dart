@@ -1,7 +1,7 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:universal_platform/universal_platform.dart'
+    show UniversalPlatform;
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -19,7 +19,7 @@ final Simulator simulator = Simulator();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isWindows) {
+  if (UniversalPlatform.isWindows) {
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = const WindowOptions(

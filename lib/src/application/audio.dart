@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
+// TODO remove this file.
+
 /// Simple example of playing audio.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
