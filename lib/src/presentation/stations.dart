@@ -109,7 +109,7 @@ class BridgeStationViewState extends State<BridgeStationView> {
           crossAxisSpacing: spacing,
           childAspectRatio: 3.0,
           padding: EdgeInsets.all(spacing),
-          crossAxisCount: 1,
+          crossAxisCount: 2,
           children: List<Widget>.from(
             tiles.map<Widget>(
               (Widget Function(Map<String, dynamic>) tile) =>
