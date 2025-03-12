@@ -5,7 +5,7 @@
 #include <gdk/gdkx.h>
 #endif
 
-#include "../../bridge_simulator/packages/dart_server/windows/flutter/generated_plugin_registrant.h"
+#include "../../kobayashi_maru/packages/dart_server/windows/flutter/generated_plugin_registrant.h"
 
 #include <bitsdojo_window_linux/bitsdojo_window_plugin.h>
 
@@ -42,11 +42,11 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "bridge_simulator");
+    gtk_header_bar_set_title(header_bar, "kobayashi_maru");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
-    gtk_window_set_title(window, "bridge_simulator");
+    gtk_window_set_title(window, "kobayashi_maru");
   }
 
 //  auto bdw = bitsdojo_window_from(window);            // <--- add this line

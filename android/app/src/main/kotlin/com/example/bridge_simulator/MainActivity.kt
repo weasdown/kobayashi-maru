@@ -1,4 +1,4 @@
-package com.example.bridge_simulator
+package com.example.kobayashi_maru
 
 import io.flutter.embedding.android.FlutterActivity
 

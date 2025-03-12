@@ -1,6 +1,6 @@
 {
-    "name": "bridge_simulator",
-    "short_name": "bridge_simulator",
+    "name": "kobayashi_maru",
+    "short_name": "kobayashi_maru",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
