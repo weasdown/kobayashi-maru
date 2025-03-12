@@ -95,5 +95,5 @@ final class DataHandler {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await KobayashiMaruServer.serve();
+  await KobayashiMaruServer.serve(host: serverHost);
 }
