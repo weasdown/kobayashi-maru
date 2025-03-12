@@ -5,7 +5,7 @@ import 'ship_systems.dart';
 final class Weapons extends ShipSystem {
   Weapons() : super(dataHandlerFunction: _dataHandler);
 
-  static const String soundFilePath = 'sounds/files/weapons';
+  static const String soundFilePath = 'assets/sounds/files/weapons';
 
   EnemyShip? target;
 
