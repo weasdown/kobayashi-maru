@@ -6,6 +6,7 @@ import 'package:minisound/engine_flutter.dart';
 class SoundPlayer {
   const SoundPlayer();
 
+  // FIXME if too many sounds are requested concurrently, the server crashes entirely. Perhaps add the sound requests to a queue then take them from the queue once the engine has initialised.
   void play(String path) async {
     debugPrint('Playing $path');
 
