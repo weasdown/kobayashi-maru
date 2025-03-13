@@ -10,7 +10,6 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  audioplayers: ^6.4.0
   flutter:
     sdk: flutter
 
