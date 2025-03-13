@@ -1,40 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dart_server/dart_server.dart' show defaultHost, defaultPort;
 import 'package:flutter/material.dart';
 import 'package:kobayashi_maru/kobayashi_maru.dart'
-    show FederationStarship, Simulator, serverHost, serverPort;
+    show FederationStarship, Simulator;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 
 /// A WebSocket server that serves the simulation data for the Kobayashi Maru simulator.
 class KobayashiMaruServer {
-  KobayashiMaruServer._({String? host, this.port = serverPort})
-    : host = host ?? serverHost;
+  KobayashiMaruServer._({String? host, this.port = defaultPort})
+    : host = host ?? defaultHost;
 
-  // TODO refactor so server is higher-level than dart:io's HttpServer.
-  Future<HttpServer> _serve() =>
-      shelf_io.serve(coreHandler, host, port).then((server) {
-        print('Serving at ws://${server.address.host}:${server.port}');
-        return server;
-      });
-
-  static final FederationStarship enterprise = Simulator.enterpriseD;
-
-  static Future<KobayashiMaruServer> serve({
-    String host = 'localhost',
-    int port = 5678,
-  }) async {
-    KobayashiMaruServer kmServer = KobayashiMaruServer._(
-      host: host,
-      port: port,
-    );
-
-    await kmServer._serve();
-
-    return kmServer;
-  }
+  /// Creates a server without immediately running it.
+  KobayashiMaruServer({String? host, int? port})
+    : host = host ?? defaultHost,
+      port = port ?? defaultPort;
 
   static final Handler coreHandler = webSocketHandler((webSocket, _) {
     webSocket.stream.listen((message) async {
@@ -62,6 +45,12 @@ class KobayashiMaruServer {
     });
   });
 
+  static final FederationStarship enterprise = Simulator.enterpriseD;
+
+  final String host;
+
+  final bool internalOnly = false;
+
   static Map<String, dynamic> messageFromJSON(String message) {
     try {
       return jsonDecode(message);
@@ -70,9 +59,31 @@ class KobayashiMaruServer {
     }
   }
 
-  final String host;
-
   final int port;
+
+  // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
+  Future<HttpServer> _serve() =>
+      shelf_io.serve(coreHandler, host, port).then((server) {
+        print('Serving at ws://${server.address.host}:${server.port}');
+        return server;
+      });
+
+  /// Creates a server and immediately starts serving from it.
+  static Future<KobayashiMaruServer> serve({
+    String host = 'localhost',
+    int port = 5678,
+  }) async {
+    KobayashiMaruServer kmServer = KobayashiMaruServer._(
+      host: host,
+      port: port,
+    );
+
+    await kmServer._serve();
+
+    return kmServer;
+  }
+
+  // TODO add override of toString()
 }
 
 /// A function that processes data received from a client.
@@ -95,5 +106,5 @@ final class DataHandler {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await KobayashiMaruServer.serve(host: serverHost);
+  await KobayashiMaruServer.serve(host: defaultHost);
 }

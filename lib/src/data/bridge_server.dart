@@ -7,6 +7,8 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../application/bridge_station.dart';
 
+// TODO remove this file once confirmed no longer needed
+
 /// A client-side interface to the WebSocket connection that enables data to be shared with the simulation server.
 class ServerInterface {
   ServerInterface();
@@ -14,6 +16,7 @@ class ServerInterface {
   WebSocketChannel channel = openChannel();
 
   /// The [Uri] that's used to access the [channel].
+  // TODO get host and port from server_connection_details.dart
   // TODO switch scheme to (secure) 'wss'
   static final channelUri = Uri(
     scheme: 'ws',
@@ -44,6 +47,7 @@ class ServerInterface {
       json.encode({'station': station.name, 'data': data});
 }
 
+// TODO remove commented classes
 // class ServerInterface extends StatefulWidget {
 //   const ServerInterface({super.key});
 //

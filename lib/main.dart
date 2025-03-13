@@ -1,3 +1,4 @@
+import 'package:dart_server/dart_server.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:universal_platform/universal_platform.dart'
@@ -5,7 +6,6 @@ import 'package:universal_platform/universal_platform.dart'
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'server_connection_details.dart';
 import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
 import 'src/application/simulator.dart';
