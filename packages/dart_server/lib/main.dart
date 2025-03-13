@@ -37,13 +37,65 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class KobayashiMaruServerView extends StatelessWidget {
+class KobayashiMaruServerView extends StatefulWidget {
   KobayashiMaruServerView({super.key});
 
   final KobayashiMaruServer server = KobayashiMaruServer();
 
   @override
+  State<KobayashiMaruServerView> createState() =>
+      _KobayashiMaruServerViewState();
+}
+
+class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
+  late final KobayashiMaruServer server = widget.server;
+
+  void _startServer() {
+    debugPrint('\nStarting server\n');
+    server.start();
+    setState(() {});
+  }
+
+  void _stopServer() {
+    debugPrint('\nStopping server\n');
+    server.stop();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ElevatedButton toggleServerButton() {
+      Widget textWidget(String text) => Padding(
+        padding: const EdgeInsets.only(bottom: 3.0),
+        child: Text(
+          text,
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+        ),
+      );
+
+      final ElevatedButton startServer = ElevatedButton(
+        onPressed: () => _startServer(),
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(Colors.green.shade600),
+        ),
+        child: textWidget('Start server'),
+      );
+
+      final ElevatedButton stopServer = ElevatedButton(
+        onPressed: () => _stopServer(),
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(Colors.red.shade600),
+        ),
+        child: textWidget('Stop server'),
+      );
+
+      return server.isServing ? stopServer : startServer;
+    }
+
+    debugPrint('Server is currently serving? ${server.isServing}');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Kobayashi Maru Server'),
@@ -57,26 +109,19 @@ class KobayashiMaruServerView extends StatelessWidget {
           widthFactor: 0.5,
           child: ListView(
             children: [
-              Text(
-                'Server',
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   'Server',
+              //   style: Theme.of(context).textTheme.headlineMedium,
+              //   textAlign: TextAlign.center,
+              // ),
               const Gap(30),
-              ElevatedButton(
-                onPressed: () => server.start(),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Colors.green.shade600,
-                  ),
-                ),
-                child: Text(
-                  'Start server',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall!.copyWith(color: Colors.white),
-                ),
+              toggleServerButton(),
+              const Gap(50),
+              Text(
+                'Connections',
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
+              // TODO add connections data from server.connections
             ],
           ),
         ),

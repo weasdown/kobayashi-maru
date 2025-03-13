@@ -12,12 +12,16 @@ import 'package:shelf_web_socket/shelf_web_socket.dart';
 /// A WebSocket server that serves the simulation data for the Kobayashi Maru simulator.
 class KobayashiMaruServer {
   KobayashiMaruServer._({String? host, this.port = defaultPort})
-    : host = host ?? defaultHost;
+    : host = host ?? defaultHost,
+      isServing = false;
 
   /// Creates a server without immediately running it.
-  KobayashiMaruServer({String? host, int? port})
+  KobayashiMaruServer({String? host, this.port = defaultPort})
     : host = host ?? defaultHost,
-      port = port ?? defaultPort;
+      isServing = false;
+
+  /// Gets info about the number of clients currently connected to the [_server].
+  HttpConnectionsInfo get connections => _server!.connectionsInfo();
 
   static final Handler coreHandler = webSocketHandler((webSocket, _) {
     webSocket.stream.listen((message) async {
@@ -52,7 +56,7 @@ class KobayashiMaruServer {
   final bool internalOnly = false;
 
   /// Whether the server is currently serving data.
-  bool isServing = false;
+  bool isServing;
 
   static Map<String, dynamic> messageFromJSON(String message) {
     try {
@@ -63,6 +67,8 @@ class KobayashiMaruServer {
   }
 
   final int port;
+
+  HttpServer? _server;
 
   /// Creates a server and immediately starts serving from it.
   static Future<KobayashiMaruServer> serve({
@@ -80,16 +86,28 @@ class KobayashiMaruServer {
   }
 
   // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
-  Future<HttpServer> _startServe() {
+  Future<HttpServer> _startServe() async {
     isServing = true;
-    return shelf_io.serve(coreHandler, host, port).then((server) {
+    _server = await shelf_io.serve(coreHandler, host, port).then((server) {
       print('Serving at ws://${server.address.host}:${server.port}');
       return server;
     });
+
+    return _server!;
   }
 
   /// Starts serving with the current configuration.
   void start() => _startServe();
+
+  /// Stops serving any data to clients.
+  Future<dynamic> stop() {
+    dynamic result = _server!.close();
+
+    _server = null;
+    isServing = false;
+
+    return result;
+  }
 
   // TODO add override of toString()
 }
