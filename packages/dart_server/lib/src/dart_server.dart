@@ -77,7 +77,7 @@ class KobayashiMaruServer {
   }
 
   /// Whether the server is currently serving data.
-  bool serving;
+  bool serving = false;
 
   // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
   Future<HttpServer> _startServe() {
