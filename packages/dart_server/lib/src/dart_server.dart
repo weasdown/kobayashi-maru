@@ -21,14 +21,14 @@ class KobayashiMaruServer {
       isServing = false;
 
   /// Gets info about the number of clients currently connected to the [_server].
-  HttpConnectionsInfo get connections => _server!.connectionsInfo();
+  HttpConnectionsInfo? get connections => _server?.connectionsInfo();
 
   static final Handler coreHandler = webSocketHandler((webSocket, _) {
     webSocket.stream.listen((message) async {
-      print('Received message: $message');
+      debugPrint('Received message: $message');
 
       Map<String, dynamic> messageJSON = messageFromJSON(message);
-      print('Message JSON: $messageJSON');
+      debugPrint('Message JSON: $messageJSON');
 
       if (!messageJSON.containsKey('station')) {
         throw ArgumentError('All messages must contain a "station" key');
