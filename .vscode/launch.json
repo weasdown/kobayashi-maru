@@ -30,6 +30,13 @@
             "type": "dart",
             "program": "packages/dart_server/lib/src/dart_server.dart",
         },
+        {
+            "name": "dart_server UI",
+            "cwd": "packages/dart_server",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+        },
         // {
         //     "name": "dart_server (profile mode)",
         //     "cwd": "packages/dart_server",
