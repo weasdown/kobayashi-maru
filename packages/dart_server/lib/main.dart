@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_server/dart_server.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -96,14 +98,54 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
 
     debugPrint('Server is currently serving? ${server.isServing}');
 
+    // FIXME always stuck on 0 - not showing number of devices connected to the server.
+    Widget connectionsInfo() {
+      HttpConnectionsInfo? connections = server.connections;
+
+      debugPrint('No connections? ${connections == null}');
+
+      if (connections == null) {
+        return Text(
+          'No connections',
+          style: Theme.of(context).textTheme.bodyLarge,
+        );
+      }
+      // The server currently has connections to clients.
+      else {
+        Widget text(String text) => Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text(text, style: Theme.of(context).textTheme.bodyLarge),
+        );
+
+        return Table(
+          border: TableBorder.all(),
+          columnWidths: {1: FlexColumnWidth(2)},
+          children: [
+            TableRow(
+              children: [
+                text('Active'),
+                text(server.connections!.active.toString()),
+              ],
+            ),
+            TableRow(
+              children: [
+                text('Idle'),
+                text(server.connections!.idle.toString()),
+              ],
+            ),
+            TableRow(
+              children: [
+                text('Closing'),
+                text(server.connections!.closing.toString()),
+              ],
+            ),
+          ],
+        );
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Kobayashi Maru Server'),
-        actions: [
-          // TODO add restart server button
-          // TODO add stop server button
-        ],
-      ),
+      appBar: AppBar(title: Text('Kobayashi Maru Server')),
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 0.5,
@@ -116,7 +158,16 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
                 'Connections',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              // TODO add connections data from server.connections
+              const Gap(20),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () => setState(() {}),
+                  child: Text('Update info'),
+                ),
+              ),
+              const Gap(20),
+              connectionsInfo(),
             ],
           ),
         ),
