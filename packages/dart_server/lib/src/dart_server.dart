@@ -51,6 +51,9 @@ class KobayashiMaruServer {
 
   final bool internalOnly = false;
 
+  /// Whether the server is currently serving data.
+  bool isServing = false;
+
   static Map<String, dynamic> messageFromJSON(String message) {
     try {
       return jsonDecode(message);
@@ -76,12 +79,9 @@ class KobayashiMaruServer {
     return kmServer;
   }
 
-  /// Whether the server is currently serving data.
-  bool serving = false;
-
   // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
   Future<HttpServer> _startServe() {
-    serving = true;
+    isServing = true;
     return shelf_io.serve(coreHandler, host, port).then((server) {
       print('Serving at ws://${server.address.host}:${server.port}');
       return server;
