@@ -109,11 +109,6 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
           widthFactor: 0.5,
           child: ListView(
             children: [
-              // Text(
-              //   'Server',
-              //   style: Theme.of(context).textTheme.headlineMedium,
-              //   textAlign: TextAlign.center,
-              // ),
               const Gap(30),
               toggleServerButton(),
               const Gap(50),
