@@ -89,6 +89,8 @@ class KobayashiMaruServer {
     return kmServer;
   }
 
+  final Simulator simulator = Simulator();
+
   // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
   Future<HttpServer> _startServe() async {
     isServing = true;
