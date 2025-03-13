@@ -61,13 +61,6 @@ class KobayashiMaruServer {
 
   final int port;
 
-  // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
-  Future<HttpServer> _serve() =>
-      shelf_io.serve(coreHandler, host, port).then((server) {
-        print('Serving at ws://${server.address.host}:${server.port}');
-        return server;
-      });
-
   /// Creates a server and immediately starts serving from it.
   static Future<KobayashiMaruServer> serve({
     String host = 'localhost',
@@ -78,10 +71,25 @@ class KobayashiMaruServer {
       port: port,
     );
 
-    await kmServer._serve();
+    await kmServer._startServe();
 
     return kmServer;
   }
+
+  /// Whether the server is currently serving data.
+  bool serving;
+
+  // FIXME refactor so server is higher-level than dart:io's HttpServer. Currently crashes when run on web because HttpServer isn't supported on web.
+  Future<HttpServer> _startServe() {
+    serving = true;
+    return shelf_io.serve(coreHandler, host, port).then((server) {
+      print('Serving at ws://${server.address.host}:${server.port}');
+      return server;
+    });
+  }
+
+  /// Starts serving with the current configuration.
+  void start() => _startServe();
 
   // TODO add override of toString()
 }
