@@ -5,48 +5,65 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter",
+            "name": "kobayashi-maru",
+            "request": "launch",
+            "type": "dart",
+            "cwd": ".",
+            "program": "lib/main.dart",
+        },
+        // {
+        //     "name": "kobayashi-maru (profile mode)",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "profile"
+        // },
+        // {
+        //     "name": "kobayashi-maru (release mode)",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "release"
+        // },
+        {
+            "name": "dart_server",
+            "cwd": "packages/dart_server",
+            "request": "launch",
+            "type": "dart",
+            "program": "packages/dart_server/lib/src/dart_server.dart",
+        },
+        // {
+        //     "name": "dart_server (profile mode)",
+        //     "cwd": "packages/dart_server",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "profile"
+        // },
+        // {
+        //     "name": "dart_server (release mode)",
+        //     "cwd": "packages/dart_server",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "flutterMode": "release"
+        // }
+        {
+            "name": "Flutter (Linux)",
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
             "deviceId": "linux"
         },
         {
-            "name": "kobayashi-maru",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "kobayashi-maru (profile mode)",
-            "request": "launch",
+            "name": "Flutter (Chrome)",
             "type": "dart",
-            "flutterMode": "profile"
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "chrome"
         },
         {
-            "name": "kobayashi-maru (release mode)",
-            "request": "launch",
+            "name": "Flutter (Windows)",
             "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "dart_server",
-            "cwd": "packages/dart_server",
             "request": "launch",
-            "type": "dart"
+            "program": "lib/main.dart",
+            "deviceId": "windows"
         },
-        {
-            "name": "dart_server (profile mode)",
-            "cwd": "packages/dart_server",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "dart_server (release mode)",
-            "cwd": "packages/dart_server",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
     ]
 }
