@@ -23,31 +23,35 @@ class KobayashiMaruServer {
   /// Gets info about the number of clients currently connected to the [_server].
   HttpConnectionsInfo? get connections => _server?.connectionsInfo();
 
-  static final Handler coreHandler = webSocketHandler((webSocket, _) {
-    webSocket.stream.listen((message) async {
-      debugPrint('Received message: $message');
+  static final Handler coreHandler = webSocketHandler(
+    (webSocket, _) {
+      webSocket.stream.listen((message) async {
+        debugPrint('Received message: $message');
 
-      Map<String, dynamic> messageJSON = messageFromJSON(message);
-      debugPrint('Message JSON: $messageJSON');
+        Map<String, dynamic> messageJSON = messageFromJSON(message);
+        debugPrint('Message JSON: $messageJSON');
 
-      if (!messageJSON.containsKey('station')) {
-        throw ArgumentError('All messages must contain a "station" key');
-      }
+        if (!messageJSON.containsKey('station')) {
+          throw ArgumentError('All messages must contain a "station" key');
+        }
 
-      String station = messageJSON['station'];
-      String response = switch (station.toLowerCase()) {
-        'tactical' => await enterprise.tactical.dataHandler(messageJSON),
-        // TODO: Handle this case.
-        _ =>
-          throw UnimplementedError(
-            'Handling of data for station "$station" is not yet implemented',
-          ),
-      };
+        String station = messageJSON['station'];
+        String response = switch (station.toLowerCase()) {
+          'tactical' => await enterprise.tactical.dataHandler(messageJSON),
+          // TODO: Handle this case.
+          _ =>
+            throw UnimplementedError(
+              'Handling of data for station "$station" is not yet implemented',
+            ),
+        };
 
-      // Send the response back to the sender.
-      webSocket.sink.add(json.encode({'response': response}));
-    });
-  });
+        // Send the response back to the sender.
+        webSocket.sink.add(json.encode({'response': response}));
+      });
+    },
+    // FIXME use pingInterval or similar correctly to check whether connection still open.
+    pingInterval: Duration(milliseconds: 500),
+  );
 
   static final FederationStarship enterprise = Simulator.enterpriseD;
 
@@ -99,13 +103,19 @@ class KobayashiMaruServer {
   /// Starts serving with the current configuration.
   void start() => _startServe();
 
+  // FIXME close all channels as well.
   /// Stops serving any data to clients.
-  Future<dynamic> stop() {
-    dynamic result = _server!.close();
+  Future<dynamic> stop() async {
+    dynamic result = await _server!.close(force: true);
+    debugPrint('\nResult of closing server: ${result.toString()}');
+    if (result is ServerSocket) {
+      debugPrint('\t- result is a ServerSocket.');
+    }
 
     _server = null;
     isServing = false;
 
+    // debugPrint('Server closed'); // TODO uncomment this line once proper closing implemented.
     return result;
   }
 
