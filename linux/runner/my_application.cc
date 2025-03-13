@@ -5,9 +5,7 @@
 #include <gdk/gdkx.h>
 #endif
 
-#include "../../kobayashi_maru/packages/dart_server/windows/flutter/generated_plugin_registrant.h"
-
-#include <bitsdojo_window_linux/bitsdojo_window_plugin.h>
+#include "flutter/generated_plugin_registrant.h"
 
 struct _MyApplication {
   GtkApplication parent_instance;
@@ -49,8 +47,6 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "kobayashi_maru");
   }
 
-//  auto bdw = bitsdojo_window_from(window);            // <--- add this line
-//  bdw->setCustomFrame(true);                          // <-- add this line
   gtk_window_set_default_size(window, 1280, 720);
   gtk_widget_show(GTK_WIDGET(window));
 
