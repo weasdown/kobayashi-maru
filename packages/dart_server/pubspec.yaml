@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  gap: ^3.0.1
   kobayashi_maru: ^0.1.0
 
   shelf: ^1.4.2
