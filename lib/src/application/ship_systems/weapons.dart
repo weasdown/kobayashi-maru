@@ -1,3 +1,5 @@
+import 'package:kobayashi_maru/audio/audio_controller.dart';
+
 import '../../../main.dart';
 import '../ship.dart';
 import 'ship_systems.dart';
@@ -82,7 +84,7 @@ final class GalaxyClassWeapons extends Weapons {
     firingPhasers = true;
 
     // TODO if target will be destroyed by this phaser hit, play 'assets/sounds/files/explosions/tng_phaser_strike.mp3' that includes an explosion at the end.
-    simulator.player.play('${Weapons.soundFilePath}/tng_phaser_clean.mp3');
+    audioController.play(AudioController.phaserSound);
 
     if (target != null) {
       target!.takePhaserDamage();
@@ -100,7 +102,7 @@ final class GalaxyClassWeapons extends Weapons {
     firingTorpedoes = true;
 
     // TODO if target will be destroyed by this phaser hit, play an explosion after this clip.
-    simulator.player.play('${Weapons.soundFilePath}/tng_torpedo3_clean.mp3');
+    audioController.play(AudioController.torpedoSound);
 
     if (target != null) {
       target!.takeTorpedoDamage();

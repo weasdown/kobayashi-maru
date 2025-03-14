@@ -20,6 +20,8 @@ WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
 final Simulator simulator = Simulator();
 
+final audioController = AudioController();
+
 void main() async {
   // The `flutter_soloud` package logs everything
   // (from severe warnings to fine debug messages)
@@ -40,7 +42,6 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final audioController = AudioController();
   await audioController.initialize();
 
   if (UniversalPlatform.isWindows) {
