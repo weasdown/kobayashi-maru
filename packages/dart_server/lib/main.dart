@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:dart_server/dart_server.dart';
 import 'package:dart_server/src/sim_state/sim_state_view.dart';
 import 'package:flutter/material.dart';
+import 'package:minisound/engine.dart' as minisound;
 import 'package:gap/gap.dart';
+
+final minisound.Engine engine = minisound.Engine();
 
 void main() {
   runApp(const MyApp());
