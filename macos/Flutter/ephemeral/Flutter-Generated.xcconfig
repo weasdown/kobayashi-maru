@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/home/pi500/dev/flutter
-FLUTTER_APPLICATION_PATH=/home/pi500/dev/kobayashi-maru
+FLUTTER_ROOT=C:\Users\weasd\dev\Flutter\flutter
+FLUTTER_APPLICATION_PATH=C:\Users\weasd\dev\non-OH\kobayashi-maru
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=0.1.0
