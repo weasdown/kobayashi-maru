@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_server/dart_server.dart';
+import 'package:dart_server/src/sim_state/sim_state_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -135,34 +136,63 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 0.5,
-          child: ListView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Gap(30),
-              Table(
-                children: [
-                  TableRow(children: [Text('Host'), Text(server.host)]),
-                  TableRow(
-                    children: [Text('Port'), Text(server.port.toString())],
+              Flexible(
+                flex: 2,
+                child: Container(
+                  child: Column(
+                    children: [
+                      FractionallySizedBox(
+                        widthFactor: 0.75,
+                        child: Table(
+                          children: [
+                            TableRow(
+                              children: [Text('Host'), Text(server.host)],
+                            ),
+                            TableRow(
+                              children: [
+                                Text('Port'),
+                                Text(server.port.toString()),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(30),
+                      toggleServerButton(),
+                      const Gap(50),
+                      Text(
+                        'Connections',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const Gap(20),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: () => setState(() {}),
+                          child: Text('Update info'),
+                        ),
+                      ),
+                      const Gap(20),
+                      connectionsInfo(),
+                    ],
                   ),
-                ],
-              ),
-              const Gap(30),
-              toggleServerButton(),
-              const Gap(50),
-              Text(
-                'Connections',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const Gap(20),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () => setState(() {}),
-                  child: Text('Update info'),
                 ),
               ),
-              const Gap(20),
-              connectionsInfo(),
+              ElevatedButton(
+                onPressed:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SimStateView(),
+                      ),
+                    ),
+                child: Text('Control simulation state'),
+              ),
+              Gap(50),
             ],
           ),
         ),
