@@ -3,6 +3,7 @@ library;
 
 export 'package:dart_server/dart_server.dart';
 
+export 'audio/audio_controller.dart';
 export 'main.dart';
 export 'src/application/application.dart';
 export 'src/data/data.dart';
