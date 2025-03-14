@@ -134,6 +134,12 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
       }
     }
 
+    Text text(String message) => Text(
+      message,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.bodyMedium,
+    );
+
     return Scaffold(
       appBar: AppBar(title: Text('Kobayashi Maru Server')),
       body: Center(
@@ -153,12 +159,12 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
                         child: Table(
                           children: [
                             TableRow(
-                              children: [Text('Host'), Text(server.host)],
+                              children: [text('Host'), text(server.host)],
                             ),
                             TableRow(
                               children: [
-                                Text('Port'),
-                                Text(server.port.toString()),
+                                text('Port'),
+                                text(server.port.toString()),
                               ],
                             ),
                           ],
