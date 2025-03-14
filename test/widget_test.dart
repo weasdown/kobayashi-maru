@@ -10,10 +10,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:kobayashi_maru/kobayashi_maru.dart';
 
-void main() {
+void main() async {
+  final audioController = AudioController();
+  await audioController.initialize();
+
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Home(station: BridgeStation.tactical));
+    await tester.pumpWidget(
+      Home(audioController: audioController, station: BridgeStation.tactical),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

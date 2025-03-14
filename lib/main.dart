@@ -1,15 +1,19 @@
+import 'dart:developer' as dev;
+
 import 'package:dart_server/dart_server.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:universal_platform/universal_platform.dart'
-    show UniversalPlatform;
+import 'package:logging/logging.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'audio/audio_controller.dart';
 import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
 import 'src/application/simulator.dart';
-import 'src/presentation/view_models/scaffold.dart';
+import 'src/presentation/presentation.dart';
 import 'src/presentation/views/server.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
@@ -17,7 +21,27 @@ WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 final Simulator simulator = Simulator();
 
 void main() async {
+  // The `flutter_soloud` package logs everything
+  // (from severe warnings to fine debug messages)
+  // using the standard `package:logging`.
+  // You can listen to the logs as shown below.
+  Logger.root.level = kDebugMode ? Level.FINE : Level.INFO;
+  Logger.root.onRecord.listen((record) {
+    dev.log(
+      record.message,
+      time: record.time,
+      level: record.level.value,
+      name: record.loggerName,
+      zone: record.zone,
+      error: record.error,
+      stackTrace: record.stackTrace,
+    );
+  });
+
   WidgetsFlutterBinding.ensureInitialized();
+
+  final audioController = AudioController();
+  await audioController.initialize();
 
   if (UniversalPlatform.isWindows) {
     await windowManager.ensureInitialized();
@@ -32,19 +56,53 @@ void main() async {
     });
   }
 
-  runApp(Home(station: BridgeStation.tactical));
+  runApp(
+    MyApp(audioController: audioController, station: BridgeStation.tactical),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    required this.station,
+    required this.audioController,
+    super.key,
+  });
+
+  final AudioController audioController;
+  final BridgeStation station;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Kobayashi Maru',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
+        // Recommended by the migration guide for Slider changes in Flutter 3.29 (https://docs.flutter.dev/release/breaking-changes/updated-material-3-slider#migration-guide)
+        // ignore: deprecated_member_use
+        sliderTheme: const SliderThemeData(year2023: false),
+      ),
+      home: Home(station: station, audioController: audioController),
+    );
+  }
 }
 
 class Home extends StatefulWidget {
-  Home({super.key, required BridgeStation station})
-    : isServer = false,
-      onConnected = station.widget;
+  Home({
+    super.key,
+    required BridgeStation station,
+    required this.audioController,
+  }) : isServer = false,
+       onConnected = station.widget;
 
   // // TODO implement usage of Home.server: if called, acts as central simulation hub, as opposed to a user-selected BridgeStation for Home().
   // Home.server({super.key, Uri? channelUri})
   //   : isServer = true,
   //     channelUri = channelUri ?? defaultChannelUri,
   //     onConnected = Server();
+
+  final AudioController audioController;
 
   final FederationStarship ship = FederationStarship(
     registry: 'NCC-1701-D',
@@ -135,17 +193,6 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Kobayashi Maru',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-
-        // Recommended by the migration guide for Slider changes in Flutter 3.29 (https://docs.flutter.dev/release/breaking-changes/updated-material-3-slider#migration-guide)
-        // ignore: deprecated_member_use
-        sliderTheme: const SliderThemeData(year2023: false),
-      ),
-      home: DefaultScaffold(onRefresh: refresh, body: connect()),
-    );
+    return DefaultScaffold(onRefresh: refresh, body: connect());
   }
 }
