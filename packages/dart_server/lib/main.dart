@@ -138,6 +138,15 @@ class _KobayashiMaruServerViewState extends State<KobayashiMaruServerView> {
           child: ListView(
             children: [
               const Gap(30),
+              Table(
+                children: [
+                  TableRow(children: [Text('Host'), Text(server.host)]),
+                  TableRow(
+                    children: [Text('Port'), Text(server.port.toString())],
+                  ),
+                ],
+              ),
+              const Gap(30),
               toggleServerButton(),
               const Gap(50),
               Text(
