@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/pi500/dev/flutter"
-export "FLUTTER_APPLICATION_PATH=/home/pi500/dev/kobayashi-maru/packages/dart_server"
+export "FLUTTER_ROOT=C:\Users\weasd\dev\Flutter\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\weasd\dev\non-OH\kobayashi-maru\packages\dart_server"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.1.0"

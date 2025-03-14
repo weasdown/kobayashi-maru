@@ -13,7 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  gap: ^3.0.1
   kobayashi_maru: ^0.1.0
+  minisound: ^2.0.2
 
   shelf: ^1.4.2
   shelf_web_socket: ^3.0.0

@@ -1,5 +1,5 @@
+import 'package:dart_server/main.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import 'package:minisound/engine.dart' as minisound;
 import 'package:minisound/engine_flutter.dart';
 
 /// Simple class to handle playing of audio, e.g. weapon sound effects.
@@ -16,8 +16,6 @@ class SoundPlayer {
     // For web, this should be executed after the first user interaction due to browsers' autoplay policy
     await engine.start();
   }
-
-  final minisound.Engine engine = minisound.Engine();
 
   // FIXME if too many sounds are requested at once, the server crashes entirely, although it can now tolerate a lot of concurrent requests. Perhaps add the sound requests to a queue then take them from the queue once the engine has initialised.
   void play(String path) async {

@@ -82,7 +82,7 @@ final class GalaxyClassWeapons extends Weapons {
     firingPhasers = true;
 
     // TODO if target will be destroyed by this phaser hit, play 'assets/sounds/files/explosions/tng_phaser_strike.mp3' that includes an explosion at the end.
-    simulator.player.play('${Weapons.soundFilePath}/tng_phaser_clean.mp3');
+    player.play('${Weapons.soundFilePath}/tng_phaser_clean.mp3');
 
     if (target != null) {
       target!.takePhaserDamage();
@@ -100,7 +100,7 @@ final class GalaxyClassWeapons extends Weapons {
     firingTorpedoes = true;
 
     // TODO if target will be destroyed by this phaser hit, play an explosion after this clip.
-    simulator.player.play('${Weapons.soundFilePath}/tng_torpedo3_clean.mp3');
+    player.play('${Weapons.soundFilePath}/tng_torpedo3_clean.mp3');
 
     if (target != null) {
       target!.takeTorpedoDamage();

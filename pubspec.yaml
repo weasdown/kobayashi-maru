@@ -47,6 +47,7 @@ dependencies:
   shelf_web_socket: ^3.0.0
   universal_platform: ^1.1.0
   minisound: ^2.0.2
+  flutter_launcher_icons: ^0.14.3
 
 
 dev_dependencies:

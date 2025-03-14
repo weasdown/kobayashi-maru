@@ -6,15 +6,15 @@ import 'package:universal_platform/universal_platform.dart'
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'src/application/audio_player.dart';
 import 'src/application/bridge_station.dart';
 import 'src/application/ship.dart';
-import 'src/application/simulator.dart';
 import 'src/presentation/view_models/scaffold.dart';
 import 'src/presentation/views/server.dart';
 
 WebSocketChannel channel = WebSocketChannel.connect(channelUri);
 
-final Simulator simulator = Simulator();
+final SoundPlayer player = SoundPlayer();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

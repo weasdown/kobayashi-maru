@@ -104,18 +104,29 @@ class BridgeStationViewState extends State<BridgeStationView> {
         };
         // debugPrint('message: $message');
 
-        return GridView.count(
-          mainAxisSpacing: spacing,
-          crossAxisSpacing: spacing,
-          childAspectRatio: 3.0,
-          padding: EdgeInsets.all(spacing),
-          crossAxisCount: 2,
-          children: List<Widget>.from(
-            tiles.map<Widget>(
-              (Widget Function(Map<String, dynamic>) tile) =>
-                  tile.call(message),
-            ),
-          ),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            debugPrint('maxWidth: ${constraints.maxWidth}');
+            return GridView.count(
+              mainAxisSpacing: spacing,
+              crossAxisSpacing: spacing,
+              childAspectRatio: 2.0,
+              padding: EdgeInsets.all(spacing),
+              crossAxisCount: switch (constraints.maxWidth) {
+                < 600 => 1,
+                >= 600 && < 900 => 2,
+                >= 900 => 3,
+                _ => throw UnimplementedError(),
+              },
+
+              children: List<Widget>.from(
+                tiles.map<Widget>(
+                  (Widget Function(Map<String, dynamic>) tile) =>
+                      tile.call(message),
+                ),
+              ),
+            );
+          },
         );
       },
     );
