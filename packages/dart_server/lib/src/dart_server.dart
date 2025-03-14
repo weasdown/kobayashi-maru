@@ -141,6 +141,7 @@ final class DataHandler {
   Future<String> Function(Map<String, dynamic>) function;
 }
 
+/// Function allowing the server to be run independently as well as within the broader KM app.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
