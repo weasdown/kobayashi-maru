@@ -71,7 +71,6 @@ flutter:
   assets:
     - assets/sounds/files/
     - assets/sounds/files/weapons/
-    - assets/music/
     - assets/sounds/
 
 #    - assets/
